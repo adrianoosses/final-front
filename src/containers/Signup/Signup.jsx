@@ -1,11 +1,14 @@
 import React from 'react'
 import axios from 'axios'
+import moment from 'moment'
 import { useHistory } from 'react-router-dom';
 //import { notification } from 'antd'
 import '../../App.css'
 
 const Signup = () => {
     const history = useHistory();
+    const format = "YYYY-MM-DD HH:mm:ss";
+    const currentDate = new Date().getTime();
     const handleSubmit = async (event) => {
         console.log("Registring");
         try {
@@ -21,8 +24,8 @@ const Signup = () => {
                 "address": form.address.value,
                 "phone": form.phone.value,
                 "card": form.card.value,
-                "createdAt": '2021/01/01', //new Date().getTime(),
-                "updatedAt": '2021/01/01' //new Date().getTime()
+                "createdAt": moment(currentDate).format(format), //new Date().getTime(),
+                "updatedAt": moment(currentDate).format(format) //new Date().getTime()
             }
             console.log("user: ", user);
             console.log("type of user: ", typeof user);

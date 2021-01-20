@@ -1,7 +1,6 @@
 import './App.css';
-//import 'antd/dist/antd.css'
+import 'antd/dist/antd.css'
 
-import Header from './components/Header/Header';
 import ProductList from './containers/ProductList/ProductList';
 import ProductData from './containers/ProductData/ProductData'
 
@@ -23,7 +22,7 @@ function App() {
 
   return (
     <BrowserRouter className="appStyle" >
-      <Buttons/>
+      <Buttons user={user} setUser={setUser}/>
       <Switch>
         <Route path='/' exact component={ProductList} />
         <Route path='/signup' exact component={Signup} />

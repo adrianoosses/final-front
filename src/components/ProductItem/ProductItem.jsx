@@ -15,19 +15,17 @@ class ProductItem extends Component {
         //console.log("this.props.history",this.props.history);
         //console.log("props",props);
 
-        // this.props.history.push('/productdata');
+        this.props.history.push('/productdata');
         
     }
     render(){
         return(
             <div key={this.props.item.id}>
             <p>{this.props.item.title}</p>
-            <img className = 'imageMovie' onClick={() => this.clickSelectMovie(this.props.item)}
+            <img className = 'imageProduct' onClick={() => this.clickSelectProduct(this.props.item)}
             src ={this.props.item.path} alt=""></img>
             <p>Price: {this.props.item.price}</p>
             </div>
-            //<img className = 'imageMovie' onClick={() => this.clickSelectMovie(this.props.item)}
-            //src ={'https://image.tmdb.org/t/p/w500' + this.props.item.poster_path} alt=""></img>
         )
     }
 }

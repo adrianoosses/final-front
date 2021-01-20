@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import './ProductData.css'
-import axios from 'axios'
 class ProductData extends Component {
     constructor(props){
         super(props)
@@ -22,6 +21,10 @@ class ProductData extends Component {
         this.setState({email: email});
     }
 
+    openChat = () =>{
+        localStorage.setItem('buyer', this.state.product.email);
+        this.props.history.push('/chat');
+    }
 
     /*
     rentMovie = async (days) =>{
@@ -56,6 +59,9 @@ class ProductData extends Component {
             <>
                 <h2>{this.state.product.title}</h2>
                 <p>Sell by {this.state.product.name}</p>
+                {console.log("proddd", this.state.product)}
+                <p>Sell by (email) {this.state.product.email}</p>
+                <div><button onClick={() => this.openChat()}>Chat</button></div> 
                 <img className = 'imageProduct' src ={this.state.product.path} alt=""></img>
                 <h2>Status: {this.state.product.productStatus}</h2>
                 <h2>{this.state.product.description}</h2>

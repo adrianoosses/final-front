@@ -44,7 +44,7 @@ const Signup = () => {
             <form className="register" onSubmit={handleSubmit}>
                 <h2>Register:</h2>
                 <p>Name: <input type="text" name="name" placeholder="Name" /></p>
-                <p>Name: <input type="text" name="lastName" placeholder="Name" /></p>
+                <p>Last name: <input type="text" name="lastName" placeholder="Name" /></p>
                 <p>Password: <input type="password" name="password" placeholder="Password" /></p>
                 <p>Email: <input type="email" name="email" placeholder="Email" /></p>
                 <p>Role: <input type="text" name="role" placeholder="Role" /></p>

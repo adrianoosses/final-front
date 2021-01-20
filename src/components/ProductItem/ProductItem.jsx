@@ -2,9 +2,9 @@ import React, {Component} from 'react'
 import './ProductItem.css'
 
 class ProductItem extends Component {
-    constructor(props){
+    /*constructor(props){
         super(props);
-    }
+    }*/
 
     clickSelectProduct(product){
         //console.log(movie.original_title)

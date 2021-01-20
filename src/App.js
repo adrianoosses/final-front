@@ -9,7 +9,7 @@ import Buttons from './components/Buttons/Buttons';
 import Signup from './containers/Signup/Signup';
 import Login from './containers/Login/Login';
 import Logout from './containers/Logout/Logout';
-// import ProfileList from './containers/ProfileList/ProfileList';
+import Chat from './containers/Chat/Chat';
 
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -30,6 +30,7 @@ function App() {
         <Route path="/logout" children={<Logout user={user} setUser={setUser}/>} exact/>
         <Route path='/productdata' exact component={ProductData} />
         <Route path='/profile' exact component={Profile} />
+        <Route path='/chat' exact component={Chat} />
       </Switch>
     </BrowserRouter>
   );

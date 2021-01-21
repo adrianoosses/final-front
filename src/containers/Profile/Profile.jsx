@@ -56,6 +56,7 @@ export default class Profile extends Component {
         console.log("productsObj:", productsObj);
         return (
             <>
+                
                 <h2>Profile</h2>
                     {userObj ?
                         <>

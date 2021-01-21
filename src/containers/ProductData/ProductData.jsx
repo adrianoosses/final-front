@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import './ProductData.css'
+
+import UserScore from '../UserScore/UserScore';
 class ProductData extends Component {
     constructor(props){
         super(props)
@@ -19,10 +21,11 @@ class ProductData extends Component {
         const email = localStorage.getItem('email');
         console.log("EMAIL: ", email);
         this.setState({email: email});
+        console.log("buyerEmail3:", product.email);
+        localStorage.setItem('buyer', product.email);
     }
 
     openChat = () =>{
-        localStorage.setItem('buyer', this.state.product.email);
         this.props.history.push('/chat');
     }
 
@@ -59,6 +62,8 @@ class ProductData extends Component {
             <>
                 <h2>{this.state.product.title}</h2>
                 <p>Sell by {this.state.product.name}</p>
+                {console.log("eeeeeeeeeeee", typeof this.state.product.email )}
+                <UserScore buyerEmail={this.state.product.email}/>
                 {console.log("proddd", this.state.product)}
                 <p>Sell by (email) {this.state.product.email}</p>
                 <div><button onClick={() => this.openChat()}>Chat</button></div> 

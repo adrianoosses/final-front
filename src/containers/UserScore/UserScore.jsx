@@ -45,7 +45,7 @@ const UserScore = () => {
             let email = localStorage.getItem('email');
             console.log('email', email);
             let dest = localStorage.getItem('seller');
-            let score2 = await axios.get(`http://127.0.0.1:3001/userscore?email=${dest}`);
+            let score2 = await axios.get(CURRENT_URL + `/userscore?email=${dest}`);
             console.log("score2222", score2);
             console.log("scoreFinal: ", score2.data[0].score);
             setScore(score2.data[0].score);

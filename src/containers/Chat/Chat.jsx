@@ -36,11 +36,11 @@ const Chat = () => {
             console.log("token", token);
             console.log("get profile");
             let email = localStorage.getItem('email');
-            let srcObj = await axios.get(`http://127.0.0.1:3001/user?email=${email}`);
+            let srcObj = await axios.get(CURRENT_URL + `/user?email=${email}`);
             console.log("srcObj", srcObj);
             const srcId = srcObj.data[0].id;
             let dest = localStorage.getItem('seller');
-            let destObj = await axios.get(`http://127.0.0.1:3001/user?email=${dest}`);
+            let destObj = await axios.get(CURRENT_URL + `/user?email=${dest}`);
             console.log("destObj", destObj);
             const destId = destObj.data[0].id;
             const chatItem = { 
@@ -52,7 +52,7 @@ const Chat = () => {
                 updatedAt: moment(currentDate).format(format)
             }
             console.log("chatItem", chatItem);
-            await axios.post(`http://127.0.0.1:3001/chat`, chatItem);
+            await axios.post(CURRENT_URL + `/chat`, chatItem);
             
                 //document.title = `You clicked ${count} times`;
             getChat();

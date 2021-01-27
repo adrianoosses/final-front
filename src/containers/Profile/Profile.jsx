@@ -45,7 +45,7 @@ export default class Profile extends Component {
             return false;
         }
 
-        let reqProduct = await axios.get(`http://127.0.0.1:3001/product?email=${email}`, 
+        let reqProduct = await axios.get(CURRENT_URL + `/product?email=${email}`, 
         { headers: {authorization: token} });
         //console.log("products: ", await reqProduct);
         this.setState({products: await reqProduct.data})

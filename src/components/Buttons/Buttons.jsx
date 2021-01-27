@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 import './Buttons.css';
 import Header from '../Header/Header';
 
-import loginLogo from '../../images/login2.svg';
+import loginLogo from './login2.svg'
 
 const Buttons = (props) => {
     return (

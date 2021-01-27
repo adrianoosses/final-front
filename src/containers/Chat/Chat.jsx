@@ -67,7 +67,7 @@ const Chat = () => {
     useEffect(() => {
         //document.title = `You clicked ${count} times`;
         getChat();
-    }, []);
+    });
 
     return (
         <>

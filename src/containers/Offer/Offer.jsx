@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment'
 //import './Chat.css';
 import { useHistory } from 'react-router-dom';
-
+import {CURRENT_URL} from '../../App';
 const Offer = () => {
     const history = useHistory();
     const [offer, setOffer] = useState('');
@@ -30,7 +30,7 @@ const Offer = () => {
                 updatedAt:moment(currentDate).format(format)
             }
             console.log("itemOffer", itemOffer);
-            let offer = await axios.post(`http://127.0.0.1:3001/offer`, itemOffer);
+            let offer = await axios.post(CURRENT_URL + '/offer', itemOffer);
             console.log("offer:", offer);
             //setScore(score.data);
         } catch (error) {
@@ -52,7 +52,7 @@ const Offer = () => {
             let sellerEmailRec = product.email;
             setSellerEmail(sellerEmailRec);
             console.log("product.id ::",product.id)
-            let itemOffer = await axios.get(`http://127.0.0.1:3001/offer?productid=${product.id}`);
+            let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${product.id}`);
             console.log("itemOffer", itemOffer);
             console.log("itemOffer: ", itemOffer.data[0].offer);
             setOffer(itemOffer.data);

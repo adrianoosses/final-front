@@ -6,6 +6,7 @@ import ProductToSell from '../ProductToSell/ProductToSell';
 import OffersProfile from '../OffersProfile/OffersProfile';
 
 import './Profile.css';
+import {CURRENT_URL} from '../../App';
 export default class Profile extends Component {
     constructor(){
         super();
@@ -22,7 +23,7 @@ export default class Profile extends Component {
             console.log("token", token);
             console.log("get profile");
             let email = localStorage.getItem('email');
-            let reqUser = await axios.get(`http://127.0.0.1:3001/user?email=${email}`, 
+            let reqUser = await axios.get(CURRENT_URL + `/user?email=${email}`, 
             { headers: {authorization: token} });
             this.setState({users: await reqUser.data[0]})
             //history.push('/');

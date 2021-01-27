@@ -4,6 +4,8 @@ import './ProductData.css'
 import UserScore from '../UserScore/UserScore';
 import Offer from '../Offer/Offer';
 import axios from 'axios'
+
+import {CURRENT_URL} from '../../App';
 class ProductData extends Component {
     constructor(props){
         super(props)
@@ -38,7 +40,7 @@ class ProductData extends Component {
         let token = localStorage.getItem('tokenUsr');
         console.log("tokennnnnnnnnn");
         let product = JSON.parse(localStorage.getItem('product'));
-        axios.delete(`http://127.0.0.1:3001/product?id=${product.id}`,
+        axios.delete(CURRENT_URL + `/product?id=${product.id}`,
         { headers: {authorization: token } })
         .then(() =>{
             console.log("product deleted");

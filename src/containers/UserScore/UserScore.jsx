@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 //import './Chat.css';
+import {CURRENT_URL} from '../../App';
 
 const UserScore = () => {
     const [score, setScore] = useState('');
@@ -19,14 +20,14 @@ const UserScore = () => {
             console.log("dest1: ", dest)
             let email = localStorage.getItem('email');
             //let destObj = await axios.get(`http://127.0.0.1:3001/user?email=${email}`);
-            let destObj = await axios.get(`http://127.0.0.1:3001/user?email=${dest}`);
+            let destObj = await axios.get(CURRENT_URL + `/user?email=${dest}`);
             const itemScore = {
                 userId: destObj.data[0].id, 
                 uScore: form.sentScore.value,
                 createdAt:moment(currentDate).format(format),
                 updatedAt:moment(currentDate).format(format)
             }
-            let score = await axios.post(`http://127.0.0.1:3001/userscore`, itemScore);
+            let score = await axios.post(CURRENT_URL + `/userscore`, itemScore);
             console.log("score:", score);
             //setScore(score.data);
         } catch (error) {

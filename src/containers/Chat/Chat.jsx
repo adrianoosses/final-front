@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 import './Chat.css';
+import {CURRENT_URL} from '../../App';
 
 const Chat = () => {
     const [chats, setChat] = useState('');
@@ -15,7 +16,7 @@ const Chat = () => {
             let email = localStorage.getItem('email');
             let dest = localStorage.getItem('seller');
             //let destObj = await axios.get(`http://127.0.0.1:3001/user?email=${dest}`);
-            let chat = await axios.get(`http://127.0.0.1:3001/chat?srcemail=${email}&dstemail=${dest}`,
+            let chat = await axios.get(CURRENT_URL + `/chat?srcemail=${email}&dstemail=${dest}`,
             { headers: {authorization: token} });
             //let chat = await axios.get(`http://127.0.0.1:3001/chat?userid=${destObj.data[0].id}`, 
             

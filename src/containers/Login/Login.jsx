@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { notification } from 'antd'
 
 import './Login.css'
-
+import {CURRENT_URL} from '../../App';
 
 const Login = (props) => {
     const history = useHistory();
@@ -14,7 +14,7 @@ const Login = (props) => {
         console.log("Logging");
         try {
             event.preventDefault();
-            let msgReceived = await axios.post('http://127.0.0.1:3001/user/login', {email, password});
+            let msgReceived = await axios.post(CURRENT_URL + '/user/login', {email, password});
             let token = await msgReceived.data.token;
             console.log("msgReceived: ", msgReceived);
             localStorage.setItem('tokenUsr', token);

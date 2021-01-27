@@ -7,6 +7,8 @@ import '../../App.css'
 
 import './Signup.css'
 
+import {CURRENT_URL} from '../../App';
+
 const Signup = () => {
     const history = useHistory();
     const format = "YYYY-MM-DD HH:mm:ss";
@@ -31,7 +33,7 @@ const Signup = () => {
             }
             console.log("user: ", user);
             console.log("type of user: ", typeof user);
-            await axios.post('http://127.0.0.1:3001/user', user)
+            await axios.post(CURRENT_URL + '/user', user)
             //notification.success({ message: 'Registered!', description: 'User successfully registered' })
             //history.push('/login')
             history.push('/')

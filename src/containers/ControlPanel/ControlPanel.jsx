@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment'
 //import './Chat.css';
 import { useHistory } from 'react-router-dom';
-
+import {CURRENT_URL} from '../../App';
 const ControlPanel = () => {
     const history = useHistory();
     const [usersList, setUsersList] = useState('');
@@ -25,7 +25,7 @@ const ControlPanel = () => {
             let sellerEmailRec = product.email;
             setSellerEmail(sellerEmailRec);
             console.log("product.id ::",product.id)
-            let usersListData = await axios.get(`http://127.0.0.1:3001/user/list`, 
+            let usersListData = await axios.get(CURRENT_URL + '/user/list', 
             { headers: {authorization: token } });
             console.log("usersList", usersListData);
             console.log("usersList: ", usersListData.data[0].offer);

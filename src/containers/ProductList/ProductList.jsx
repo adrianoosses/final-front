@@ -3,7 +3,7 @@ import axios from 'axios'
 import ProductItem from '../../components/ProductItem/ProductItem'
 //import LoaderPage from '../../components/LoaderPage/LoaderPage'
 import './ProductList.css'
-
+import {CURRENT_URL} from '../../App';
 class ProductList extends Component {
     constructor(props){
         super(props)
@@ -17,7 +17,7 @@ class ProductList extends Component {
     }
 
     getProducts(page){
-        axios.get(`http://127.0.0.1:3001/product?page=${page}`)
+        axios.get(CURRENT_URL + `/product?page=${page}`)
         .then((api) =>{
             console.log("productssssssss: ",api.data);
             this.setState({products: api.data });
@@ -29,7 +29,7 @@ class ProductList extends Component {
         //const page = (this.state.page);
         const page = 1;
         const email = localStorage.getItem('email');
-        axios.get(`http://127.0.0.1:3001/product?page=${page}&email=${email}`)
+        axios.get(CURRENT_URL + `/product?page=${page}&email=${email}`)
         .then((api) =>{
             console.log("productssssssss: ",api.data);
             this.setState = this.setState.bind(this);

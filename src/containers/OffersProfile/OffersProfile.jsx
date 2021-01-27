@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 //import './Chat.css';
+import {CURRENT_URL} from '../../App';
 
 const OffersProfile = () => {
     const [offer, setOffer] = useState('');
@@ -22,7 +23,7 @@ const OffersProfile = () => {
             let destEmail = localStorage.getItem('seller');
             let product = JSON.parse(localStorage.getItem('product'));
             console.log("product.id ::",product.id)
-            let itemOffer = await axios.get(`http://127.0.0.1:3001/offer?productid=${product.id}`);
+            let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${product.id}`);
             console.log("itemOffer", itemOffer);
             console.log("itemOffer: ", itemOffer.data[0].offer);
             setOffer(itemOffer.data);

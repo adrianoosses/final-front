@@ -1,6 +1,9 @@
 import './App.css';
 import 'antd/dist/antd.css'
 
+
+
+
 import ProductList from './containers/ProductList/ProductList';
 import ProductData from './containers/ProductData/ProductData';
 
@@ -17,7 +20,7 @@ import ControlPanel from './containers/ControlPanel/ControlPanel';
 
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-
+export const CURRENT_URL = 'https://mejorprecio-back.herokuapp.com';
 function App() {
   const [user, setUser] = useState(null);
   /*

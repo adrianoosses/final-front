@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 //import './Chat.css';
-
+import {CURRENT_URL} from '../../App';
 export default function ProductToSell() {
     const [productToSell, setProductToSell] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
@@ -27,7 +27,7 @@ export default function ProductToSell() {
                 updatedAt:moment(currentDate).format(format),
                 mainImage: form.productImage.value,
             }
-            let product = await axios.post(`http://127.0.0.1:3001/product`, itemProduct);
+            let product = await axios.post(CURRENT_URL + `/product`, itemProduct);
 
             console.log("product:", product);
             //setScore(score.data);

@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import './ProductData.css'
 
 import UserScore from '../UserScore/UserScore';
+import Offer from '../Offer/Offer';
+import axios from 'axios'
 class ProductData extends Component {
     constructor(props){
         super(props)
@@ -15,6 +17,7 @@ class ProductData extends Component {
     }
 
     componentDidMount(){
+        //console.log("item", props.item);
         let product = JSON.parse(localStorage.getItem('product'));
         this.setState({product})
         //this.props.subscribe(this);
@@ -22,10 +25,30 @@ class ProductData extends Component {
         console.log("EMAIL: ", email);
         this.setState({email: email});
         console.log("buyerEmail3:", product.email);
-        localStorage.setItem('buyer', product.email);
+        localStorage.setItem('seller', product.email);
     }
 
     openChat = () =>{
+        let product = JSON.parse(localStorage.getItem('product'));
+        localStorage.setItem('seller', product.email);
+        this.props.history.push('/chat');
+    }
+
+    deleteProduct = () =>{
+        let token = localStorage.getItem('tokenUsr');
+        console.log("tokennnnnnnnnn");
+        let product = JSON.parse(localStorage.getItem('product'));
+        axios.delete(`http://127.0.0.1:3001/product?id=${product.id}`,
+        { headers: {authorization: token } })
+        .then(() =>{
+            console.log("product deleted");
+        })
+
+        this.props.history.push('/');
+    }
+
+    openChatBuyer2 = (destChat) =>{
+        localStorage.setItem('seller', destChat);
         this.props.history.push('/chat');
     }
 
@@ -60,17 +83,40 @@ class ProductData extends Component {
     render(){
         return (
             <>
-                <h2>{this.state.product.title}</h2>
-                <p>Sell by {this.state.product.name}</p>
-                {console.log("eeeeeeeeeeee", typeof this.state.product.email )}
-                <UserScore buyerEmail={this.state.product.email}/>
-                {console.log("proddd", this.state.product)}
-                <p>Sell by (email) {this.state.product.email}</p>
-                <div><button onClick={() => this.openChat()}>Chat</button></div> 
-                <img className = 'imageProduct' src ={this.state.product.path} alt=""></img>
-                <h2>Status: {this.state.product.productStatus}</h2>
-                <h2>{this.state.product.description}</h2>
-                <p>{this.state.product.price} €</p>
+            <div className='generalContainerProductData'>
+                <div className='containerProductData'>
+                
+                    <div className="containerProduct">
+                    <h2>{this.state.product.title}</h2>
+                    <img className = 'imageProduct' src ={this.state.product.mainImage} alt=""></img>
+                    <h2>{this.state.product.description}</h2>
+                    </div>
+                    
+                    <div className="containerData">
+                    <br></br>
+                    <br></br>
+                    <p>Sell by {this.state.product.name}</p>
+                    <UserScore buyerEmail={this.state.product.email}/>
+                    {console.log("proddd", this.state.product)}
+                    {(this.state.product.email === localStorage.getItem('email')) ?
+                    <>
+                        <button onClick={this.deleteProduct}>DELETE PRODUCT</button>
+                    </>:<>
+                    <div><button onClick={() => this.openChat()}>Chat</button></div> 
+                    </>
+                    }
+                    
+                    
+                    <h2>Status: {this.state.product.productStatus}</h2>
+                    
+                    <p>{this.state.product.price} €</p>
+
+                    <Offer />
+
+                    
+                    </div>
+                </div>
+            </div>
             </>
             
         )

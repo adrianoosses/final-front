@@ -1,5 +1,36 @@
 .imageProduct{
-    max-width:10%;
+    margin-top: 10px;
+    max-width:100%;
     height:auto;
     cursor: pointer;
+    margin-left: 10px;
+
+}
+
+.titleProduct{
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.priceProduct{
+    margin-left: 10px;
+    font-size: 30px;
+} 
+
+.itemProduct{
+    background-color: rgb(238, 238, 238);
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(238, 238, 238);
+    margin-right: 10px;
+}
+
+.itemProduct:hover{
+    border-style: solid;
+    border-width: 2px;
+    cursor: pointer;
+    background-color:rgb(255, 255, 255);
+    border-color: rgb(189, 189, 189);
+    margin-right: 10px;
 }

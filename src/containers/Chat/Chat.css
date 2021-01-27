@@ -1,0 +1,68 @@
+.chatsContainer{
+    background-color: rgb(240, 240, 240);
+    height: 33em;
+}
+
+.messageSource{
+    text-align: right;
+}
+
+.messageDestination{
+    text-align: left;
+}
+
+.generalContainerChat{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.containerChat{
+    display: flex;
+    flex-direction: column;
+    
+    background-color: white;
+    border-color: rgb(189, 189, 189);
+    border-style: solid;
+    border-width: 2px;
+    
+}
+
+.containerForm{
+    
+    width: 30em;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.textStyle{
+    margin-top: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between
+}
+
+.box{
+    width: 70%;
+}
+
+.loginButton{
+    width: 100%;
+    height: 4em;
+    margin-top: 20px;
+    background-color: rgb(0, 161, 81);
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(189, 189, 189);
+    margin-right: 10px;
+    color: white;
+    font-size: 20px;
+}
+
+.loginButton:hover{
+    background-color:rgb(0, 190, 95);;
+
+}

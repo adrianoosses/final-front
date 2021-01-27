@@ -17,9 +17,22 @@ class ProductList extends Component {
     }
 
     getProducts(page){
-        axios.get(`http://127.0.0.1:3001/product`)
+        axios.get(`http://127.0.0.1:3001/product?page=${page}`)
         .then((api) =>{
-            console.log("product: ",api.data);
+            console.log("productssssssss: ",api.data);
+            this.setState({products: api.data });
+        })
+        .catch( (err) => console.log(err) ) ;
+    }
+
+    getMyProducts = () => {
+        //const page = (this.state.page);
+        const page = 1;
+        const email = localStorage.getItem('email');
+        axios.get(`http://127.0.0.1:3001/product?page=${page}&email=${email}`)
+        .then((api) =>{
+            console.log("productssssssss: ",api.data);
+            this.setState = this.setState.bind(this);
             this.setState({products: api.data });
         })
         .catch( (err) => console.log(err) ) ;
@@ -27,6 +40,15 @@ class ProductList extends Component {
 
     componentDidMount(){
         this.getProducts(this.state.page);
+    }
+
+    handleAllProducts =() =>{
+        this.getProducts(this.state.page);
+    }
+
+    handleMyProducts(){
+        this.getMyProducts(this.state.page);
+
     }
    
     /*
@@ -81,22 +103,27 @@ class ProductList extends Component {
         return (
             //<LoaderPage condiction={movies.length === 0} > 
             <>
+            {console.log("products::", products)}
+            <div className="buttonGeneral">
                 <div>
                     <button onClick={this.onBeforePage}> Back </button>
                     <button onClick={this.onNextPage}> Next </button>
                     <input type="text" onChange={ event => this.onHandleChange(event) } />
                     <p>Page: {this.state.page}</p>
                 </div> 
-                
+                <button onClick={this.getMyProducts}>My Products</button>
+                <button onClick={this.handleAllProducts}>All Products</button>
                 <div className = "divGeneral">
+                
                     {search.length === 0 && text === ''
-                        ? products.map( item => <ProductItem item={item} history={this.props.history}/>)
-                        : search.map( item => <ProductItem item={item} history={this.props.history}/>)
+                        ? products.map( item => <div className="containerItem"><ProductItem item={item} history={this.props.history}/></div>)
+                        : search.map( item => <div><ProductItem item={item} history={this.props.history}/></div>)
                     }
                 </div>
                 
                 <button onClick={() => this.onViewMore()}> View more </button>
-            </>
+            </div>   
+        </>
             //</LoaderPage>
         )
     }

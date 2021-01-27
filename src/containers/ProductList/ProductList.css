@@ -1,0 +1,29 @@
+.divGeneral{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: center;
+}
+
+.divGeneral > div {
+    flex: 1 1 200px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .containerItem{
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      
+  }
+
+  .buttonGeneral{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

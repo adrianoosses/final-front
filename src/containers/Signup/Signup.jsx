@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom';
 //import { notification } from 'antd'
 import '../../App.css'
 
+import './Signup.css'
+
 const Signup = () => {
     const history = useHistory();
     const format = "YYYY-MM-DD HH:mm:ss";
@@ -40,21 +42,25 @@ const Signup = () => {
 
     }
     return (
-        <div className="contentStyle">
-            <form className="register" onSubmit={handleSubmit}>
-                <h2>Register:</h2>
-                <p>Name: <input type="text" name="name" placeholder="Name" /></p>
-                <p>Last name: <input type="text" name="lastName" placeholder="Name" /></p>
-                <p>Password: <input type="password" name="password" placeholder="Password" /></p>
-                <p>Email: <input type="email" name="email" placeholder="Email" /></p>
-                <p>Role: <input type="text" name="role" placeholder="Role" /></p>
-                <p>Birth date: <input type="text" name="birthDate" placeholder="yyyy/mm/dd" /></p>
-                <p>Address: <input type="text" name="address" placeholder="Country Street Number" /></p>
-                <p>Phone: <input type="number" name="phone" placeholder="123 45 67 89" /></p>
-                <p>Card: <input type="number" name="card" placeholder="1234 1234 1234 1234" /></p>
-                <button type="submit">Register now!</button>
-                <p/>
-            </form>
+        <div className="generalContainerSignup">
+            <div className="containerSignup">
+                <div className="containerForm">
+                    <form className="register" onSubmit={handleSubmit}>
+                        <h2>Register:</h2>
+                        <div className="textStyle"><div>Name: </div><input className="box" type="text" name="name" placeholder="Name" /></div>
+                        <div className="textStyle"><div>Last name: </div><input className="box" type="text" name="lastName" placeholder="Name" /></div>
+                        <div className="textStyle"><div>Password:</div> <input className="box" type="password" name="password" placeholder="Password" /></div>
+                        <div className="textStyle"><div>Email: </div><input className="box" type="email" name="email" placeholder="Email" /></div>
+                        <div className="textStyle"><div>Role:</div> <input className="box" type="text" name="role" placeholder="Role" /></div>
+                        <div className="textStyle"><div>Birth date: </div><input className="box" type="text" name="birthDate" placeholder="yyyy/mm/dd" /></div>
+                        <div className="textStyle"><div>Address:</div> <input className="box" type="text" name="address" placeholder="Country Street Number" /></div>
+                        <div className="textStyle"><div>Phone: </div><input className="box" type="number" name="phone" placeholder="123 45 67 89" /></div>
+                        <div className="textStyle"><div>Card:</div> <input className="box" type="number" name="card" placeholder="1234 1234 1234 1234" /></div>
+                        <button className="signupButton" type="submit">Register now!</button>
+                        <p/>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }

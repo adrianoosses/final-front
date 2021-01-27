@@ -20,11 +20,11 @@ class ProductItem extends Component {
     }
     render(){
         return(
-            <div key={this.props.item.id}>
-            <p>{this.props.item.title}</p>
-            <img className = 'imageProduct' onClick={() => this.clickSelectProduct(this.props.item)}
-            src ={this.props.item.path} alt=""></img>
-            <p>Price: {this.props.item.price}</p>
+            <div className="itemProduct" onClick={() => this.clickSelectProduct(this.props.item)} key={this.props.item.id}>
+                <img className = 'imageProduct' 
+                src ={this.props.item.mainImage} alt=""></img>
+                <div className="priceProduct">{this.props.item.price} €</div>
+                <div className="titleProduct">{this.props.item.title}</div>
             </div>
         )
     }

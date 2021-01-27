@@ -15,7 +15,7 @@ const UserScore = () => {
             let token =  localStorage.getItem('tokenUsr')
            // console.log("token", token);
 
-            let dest = localStorage.getItem('buyer');
+            let dest = localStorage.getItem('seller');
             console.log("dest1: ", dest)
             let email = localStorage.getItem('email');
             //let destObj = await axios.get(`http://127.0.0.1:3001/user?email=${email}`);
@@ -43,7 +43,7 @@ const UserScore = () => {
             //console.log("token", token);
             let email = localStorage.getItem('email');
             console.log('email', email);
-            let dest = localStorage.getItem('buyer');
+            let dest = localStorage.getItem('seller');
             let score2 = await axios.get(`http://127.0.0.1:3001/userscore?email=${dest}`);
             console.log("score2222", score2);
             console.log("scoreFinal: ", score2.data[0].score);
@@ -59,8 +59,7 @@ const UserScore = () => {
 
     return (
         <>
-            <h2>Score</h2>
-            {console.log("score", score)};
+            {console.log("score", score)}
                 {score ?
                     <>
                         <p>User score: {score}</p>

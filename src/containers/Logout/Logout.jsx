@@ -6,10 +6,10 @@ const Logout = (props) => {
     console.log("logging out");
     try {
         localStorage.clear();
-        props.setUser(null)
-        
-        notification.success({ message: 'Logged out!', description: 'Logged out!'});
+        props.setUser(null)  
         history.push('/');
+        notification.success({ message: 'Logged out!', description: 'Logged out!'});
+        
     } catch (error) {
         console.error(error)
         notification.error({ message: 'Logout failed', description: 'there was a problem loging out' })

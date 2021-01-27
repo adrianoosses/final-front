@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useHistory } from 'react-router-dom';
 import { notification } from 'antd'
 
+import './Login.css'
+
 
 const Login = (props) => {
     const history = useHistory();
@@ -28,14 +30,21 @@ const Login = (props) => {
         }
     }
     return (
-        <div className="contentStyle">
-            <form className="register" onSubmit={handleSubmit}>
-                <h2>Login:</h2>
-                <p>Email: <input type="text" onChange={event=>setEmail(event.target.value)} name="email" placeholder="user@domain.com" /></p>
-                <p>Password: <input type="password" onChange={event=>setPassword(event.target.value)} name="password" placeholder="8 or more characters" /></p>
-                <button type="submit">Login</button>
-                <p/>
-            </form>
+        <div className="generalContainerLogin">
+            <div className="containerLogin">
+            <div className="containerForm">
+                <form onSubmit={handleSubmit}>
+                    <h2>Login:</h2>
+                    <div className="textStyle" ><div>Email:</div> <input className="box" type="text" onChange={event=>setEmail(event.target.value)} name="email" placeholder="user@domain.com" /></div>
+                    <div className="textStyle" ><div>Password:</div> <input className="box" type="password" onChange={event=>setPassword(event.target.value)} name="password" placeholder="8 or more characters" /></div>
+                    <button className="loginButton" type="submit">Login</button>
+                    <p/>
+                    
+                </form>
+                <div className="textStyle" >Don't you have and account yet? <a href='/signup'>Signup now!</a></div>
+                </div>
+            </div>
+            
         </div>
     )
 }

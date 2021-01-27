@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 //import { useHistory } from 'react-router-dom';
 
+import ProductToSell from '../ProductToSell/ProductToSell';
+import OffersProfile from '../OffersProfile/OffersProfile';
+
 import './Profile.css';
 export default class Profile extends Component {
     constructor(){
@@ -34,13 +37,15 @@ export default class Profile extends Component {
 
     getProduct = async () =>{
         console.log("Showing products...");
+        let token =  localStorage.getItem('tokenUsr')
         const email = this.getEmail();
         if(!email){
             console.log("Log In first")
             return false;
         }
 
-        let reqProduct = await axios.get(`http://127.0.0.1:3001/product?email=${email}`);
+        let reqProduct = await axios.get(`http://127.0.0.1:3001/product?email=${email}`, 
+        { headers: {authorization: token} });
         //console.log("products: ", await reqProduct);
         this.setState({products: await reqProduct.data})
     }
@@ -66,7 +71,8 @@ export default class Profile extends Component {
                             <p>No user login</p>
                         </>
                     }
-
+                    
+                    
                     {productsObj.length ?
                         <>
                             {productsObj.map((item) => <>

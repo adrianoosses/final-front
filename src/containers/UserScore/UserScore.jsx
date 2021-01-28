@@ -69,7 +69,7 @@ const UserScore = () => {
                     </>
                 }
                 <form className="send" onSubmit={setUserScore}>
-                    <p>Score: <input type="number" name="sentScore"/></p>
+                    <span>Score: <input type="number" name="sentScore"/></span>
                     <button type="submit">Send</button>
                 </form>         
         </>

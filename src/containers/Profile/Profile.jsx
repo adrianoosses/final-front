@@ -62,31 +62,41 @@ export default class Profile extends Component {
         console.log("productsObj:", productsObj);
         return (
             <>
+            <div className='generalContainerProductData'>
+            <h2>Profile</h2>
+            <div className='containerProductData'>
                 
-                <h2>Profile</h2>
+                
+                <div className="containerProduct">
                     {userObj ?
                         <>
-                            <p>Name: {userObj.name} </p>
-                            <p>Email: {userObj.email} </p>
+                            <p className="textStyle">Name: {userObj.name} </p>
+                            <p className="textStyle">Email: {userObj.email} </p>
                         </>:<>
                             <p>No user login</p>
                         </>
                     }
-                    
-                    
+                </div>
+                <div className="containerData">
+                <p className="textStyle">Products to sell</p>
                     {productsObj.length ?
                         <>
+                        <div className="itemProduct">
                             {productsObj.map((item) => <>
-                                    <p>Title: {item.title}</p>
-                                    <p>Product status: {item.productStatus}</p>
-                                    <p>Price: {item.price}</p>
+                                    <span className="textStyle">Title: {item.title}</span>
+                                    <span className="textStyle">Product status: {item.productStatus}</span>
+                                    <span className="textStyle">Price: {item.price}</span>
                                 </>
                                 )
                             }
+                            </div>
                         </>:<>
                             <p>No orders to show</p>
                         </>
-                    }            
+                    }  
+                    </div>      
+                </div>  
+                </div>  
             </>
         )
     }

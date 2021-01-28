@@ -4,7 +4,7 @@ import moment from 'moment'
 import { useHistory } from 'react-router-dom';
 //import { notification } from 'antd'
 import '../../App.css'
-
+import { notification, Input } from 'antd'
 import './Signup.css'
 
 import {CURRENT_URL} from '../../App';
@@ -36,7 +36,7 @@ const Signup = () => {
             await axios.post(CURRENT_URL + '/user', user)
             //notification.success({ message: 'Registered!', description: 'User successfully registered' })
             //history.push('/login')
-            history.push('/')
+            history.push('/login')
         } catch (error) {
             console.error(error)
             //notification.error({ message: 'Register failed', description: 'there was a problem trying to register the user' })
@@ -49,15 +49,15 @@ const Signup = () => {
                 <div className="containerForm">
                     <form className="register" onSubmit={handleSubmit}>
                         <h2>Register:</h2>
-                        <div className="textStyle"><div>Name: </div><input className="box" type="text" name="name" placeholder="Name" /></div>
-                        <div className="textStyle"><div>Last name: </div><input className="box" type="text" name="lastName" placeholder="Name" /></div>
-                        <div className="textStyle"><div>Password:</div> <input className="box" type="password" name="password" placeholder="Password" /></div>
-                        <div className="textStyle"><div>Email: </div><input className="box" type="email" name="email" placeholder="Email" /></div>
-                        <div className="textStyle"><div>Role:</div> <input className="box" type="text" name="role" placeholder="Role" /></div>
-                        <div className="textStyle"><div>Birth date: </div><input className="box" type="text" name="birthDate" placeholder="yyyy/mm/dd" /></div>
-                        <div className="textStyle"><div>Address:</div> <input className="box" type="text" name="address" placeholder="Country Street Number" /></div>
-                        <div className="textStyle"><div>Phone: </div><input className="box" type="number" name="phone" placeholder="123 45 67 89" /></div>
-                        <div className="textStyle"><div>Card:</div> <input className="box" type="number" name="card" placeholder="1234 1234 1234 1234" /></div>
+                        <div className="textStyle"><div>Name: </div><Input className="box" type="text" name="name" placeholder="Name" /></div>
+                        <div className="textStyle"><div>Last name: </div><Input className="box" type="text" name="lastName" placeholder="Last name" /></div>
+                        <div className="textStyle"><div>Password:</div> <Input className="box" type="password" name="password" placeholder="Password" /></div>
+                        <div className="textStyle"><div>Email: </div><Input className="box" type="email" name="email" placeholder="Email" /></div>
+                        <div className="textStyle"><div>Role:</div> <Input className="box" type="text" name="role" placeholder="Role" /></div>
+                        <div className="textStyle"><div>Birth date: </div><Input className="box" type="text" name="birthDate" placeholder="yyyy/mm/dd" /></div>
+                        <div className="textStyle"><div>Address:</div> <Input className="box" type="text" name="address" placeholder="Country Street Number" /></div>
+                        <div className="textStyle"><div>Phone: </div><Input className="box" type="number" name="phone" placeholder="123 45 67 89" /></div>
+                        <div className="textStyle"><div>Card:</div> <Input className="box" type="number" name="card" placeholder="1234 1234 1234 1234" /></div>
                         <button className="signupButton" type="submit">Register now!</button>
                         <p/>
                     </form>

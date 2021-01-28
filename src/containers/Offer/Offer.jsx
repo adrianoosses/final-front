@@ -95,7 +95,7 @@ const Offer = () => {
                 }
         </>:<>
             <form className="send" onSubmit={addOffer}>
-                <p>Offer: <input type="number" name="addoffer"/></p>
+                <span>Offer: <input type="number" name="addoffer"/></span>
                 <button type="submit">Send</button>
             </form>        
         </>

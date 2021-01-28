@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
-import { notification } from 'antd'
+import { notification, Input } from 'antd'
 
 import './Login.css'
 import {CURRENT_URL} from '../../App';
@@ -35,8 +35,8 @@ const Login = (props) => {
             <div className="containerForm">
                 <form onSubmit={handleSubmit}>
                     <h2>Login:</h2>
-                    <div className="textStyle" ><div>Email:</div> <input className="box" type="text" onChange={event=>setEmail(event.target.value)} name="email" placeholder="user@domain.com" /></div>
-                    <div className="textStyle" ><div>Password:</div> <input className="box" type="password" onChange={event=>setPassword(event.target.value)} name="password" placeholder="8 or more characters" /></div>
+                    <div className="textStyle" ><div>Email:</div> <Input className="box" type="text" onChange={event=>setEmail(event.target.value)} name="email" placeholder="user@domain.com" /></div>
+                    <div className="textStyle" ><div>Password:</div> <Input className="box" type="password" onChange={event=>setPassword(event.target.value)} name="password" placeholder="8 or more characters" /></div>
                     <button className="loginButton" type="submit">Login</button>
                     <p/>
                     

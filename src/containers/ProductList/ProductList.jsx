@@ -4,7 +4,7 @@ import ProductItem from '../../components/ProductItem/ProductItem'
 //import LoaderPage from '../../components/LoaderPage/LoaderPage'
 import './ProductList.css'
 import {CURRENT_URL} from '../../App';
-import { LoginOutlined  } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 class ProductList extends Component {
     constructor(props){
         super(props)
@@ -105,18 +105,18 @@ class ProductList extends Component {
             //<LoaderPage condiction={movies.length === 0} > 
             //<img src ={''} alt=""></img>
             <>
- 
-            <LoginOutlined style={{ fontSize: '65px', color: 'black' }}/>
+
             {console.log("products::", products)}
             <div className="buttonGeneral">
                 <div>
-                    <button onClick={this.onBeforePage}> Back </button>
-                    <button onClick={this.onNextPage}> Next </button>
-                    <input type="text" onChange={ event => this.onHandleChange(event) } />
-                    <p>Page: {this.state.page}</p>
+                    <LeftOutlined onClick={this.onBeforePage} style={{ fontSize: '50px', color: 'gray' }}/> 
+                    <span className="defaultText">{this.state.page}</span>
+                    <RightOutlined onClick={this.onNextPage} style={{ fontSize: '50px', color: 'gray' }}/> 
+                    <input className="defaultText" type="text" onChange={ event => this.onHandleChange(event) } />
+                    <button className="productsButton" onClick={this.getMyProducts}>My Products</button>
+                    <button className="productsButton" onClick={this.handleAllProducts}>All Products</button>
                 </div> 
-                <button onClick={this.getMyProducts}>My Products</button>
-                <button onClick={this.handleAllProducts}>All Products</button>
+                
                 <div className = "divGeneral">
                 
                     {search.length === 0 && text === ''

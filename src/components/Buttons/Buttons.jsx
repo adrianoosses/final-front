@@ -2,7 +2,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import './Buttons.css';
 import Header from '../Header/Header';
-import { LoginOutlined  } from '@ant-design/icons';
+import { LoginOutlined, PlusOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 
 import loginLogo from './login2.svg'
 
@@ -17,9 +17,9 @@ const Buttons = (props) => {
                 {props.user ?
                     <>
                         <span class="logoutText">Hi, {localStorage.getItem('email')}</span>
-                        <NavLink to="/profile">Profile</NavLink>
-                        <NavLink to="/logout">Logout</NavLink>
-                        <NavLink to="/sellproduct">Sell a product</NavLink>
+                        <NavLink to="/profile"><UserOutlined style={{ fontSize: '65px', color: 'white' }}/></NavLink>
+                        <NavLink to="/sellproduct"><PlusOutlined style={{ fontSize: '65px', color: 'white' }}/></NavLink>
+                        <NavLink to="/logout"><LogoutOutlined style={{ fontSize: '65px', color: 'white' }}/></NavLink>
                     </> :
                     <>
                         

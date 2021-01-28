@@ -4,6 +4,7 @@ import './ProductData.css'
 import UserScore from '../UserScore/UserScore';
 import Offer from '../Offer/Offer';
 import axios from 'axios'
+import { MessageOutlined } from '@ant-design/icons';
 
 import {CURRENT_URL} from '../../App';
 class ProductData extends Component {
@@ -89,29 +90,31 @@ class ProductData extends Component {
                 <div className='containerProductData'>
                 
                     <div className="containerProduct">
-                    <h2>{this.state.product.title}</h2>
-                    <img className = 'imageProduct' src ={this.state.product.mainImage} alt=""></img>
-                    <h2>{this.state.product.description}</h2>
+                        <h2>{this.state.product.title}</h2>
+                        <img className = 'imageProduct' src ={this.state.product.mainImage} alt=""></img>
+                        <p style={{ fontSize: '18px', color: 'gray' }}>{this.state.product.description}</p>
                     </div>
                     
                     <div className="containerData">
                     <br></br>
                     <br></br>
-                    <p>Sell by {this.state.product.name}</p>
+                     
+                    <span className="textStyle">Sell by {this.state.product.name}</span>
+                    <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => this.openChat()}>Chat</MessageOutlined>
                     <UserScore buyerEmail={this.state.product.email}/>
                     {console.log("proddd", this.state.product)}
                     {(this.state.product.email === localStorage.getItem('email')) ?
                     <>
                         <button onClick={this.deleteProduct}>DELETE PRODUCT</button>
                     </>:<>
-                    <div><button onClick={() => this.openChat()}>Chat</button></div> 
+                    
                     </>
                     }
                     
                     
                     <h2>Status: {this.state.product.productStatus}</h2>
                     
-                    <p>{this.state.product.price} €</p>
+                    <p className="textStyle">{this.state.product.price} €</p>
 
                     <Offer />
 

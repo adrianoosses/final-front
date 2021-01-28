@@ -4,6 +4,7 @@ import ProductItem from '../../components/ProductItem/ProductItem'
 //import LoaderPage from '../../components/LoaderPage/LoaderPage'
 import './ProductList.css'
 import {CURRENT_URL} from '../../App';
+import { LoginOutlined  } from '@ant-design/icons';
 class ProductList extends Component {
     constructor(props){
         super(props)
@@ -103,6 +104,7 @@ class ProductList extends Component {
         return (
             //<LoaderPage condiction={movies.length === 0} > 
             <>
+            <LoginOutlined style={{ fontSize: '65px', color: 'black' }}/>
             {console.log("products::", products)}
             <div className="buttonGeneral">
                 <div>

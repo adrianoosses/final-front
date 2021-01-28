@@ -2,6 +2,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import './Buttons.css';
 import Header from '../Header/Header';
+import { LoginOutlined  } from '@ant-design/icons';
 
 import loginLogo from './login2.svg'
 
@@ -21,7 +22,8 @@ const Buttons = (props) => {
                         <NavLink to="/sellproduct">Sell a product</NavLink>
                     </> :
                     <>
-                        <div className='loginLogo'>
+                    <LoginOutlined />
+                        <div className='loginLogo' >
                         <NavLink to="/login"><img className='loginImage' src={loginLogo} alt="logoLogin" /></NavLink>
                         </div>
                     </>

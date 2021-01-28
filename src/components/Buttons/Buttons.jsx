@@ -22,9 +22,8 @@ const Buttons = (props) => {
                         <NavLink to="/sellproduct">Sell a product</NavLink>
                     </> :
                     <>
-                    <LoginOutlined />
                         <div className='loginLogo' >
-                        <NavLink to="/login"><img className='loginImage' src={loginLogo} alt="logoLogin" /></NavLink>
+                        <NavLink to="/login"><LoginOutlined /></NavLink>
                         </div>
                     </>
                 }

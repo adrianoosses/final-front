@@ -103,7 +103,9 @@ class ProductList extends Component {
         const { search, text, products } = this.state;
         return (
             //<LoaderPage condiction={movies.length === 0} > 
+            //<img src ={''} alt=""></img>
             <>
+ 
             <LoginOutlined style={{ fontSize: '65px', color: 'black' }}/>
             {console.log("products::", products)}
             <div className="buttonGeneral">

@@ -23,7 +23,7 @@ const Buttons = (props) => {
                     </> :
                     <>
                         <div className='loginLogo' >
-                        <NavLink to="/login"><LoginOutlined /></NavLink>
+                        <NavLink to="/login"><LoginOutlined style={{ fontSize: '65px', color: 'white' }}/></NavLink>
                         </div>
                     </>
                 }

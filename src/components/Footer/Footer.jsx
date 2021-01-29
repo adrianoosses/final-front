@@ -1,6 +1,5 @@
 import React from 'react'
 import '../Footer/Footer.css'
-import titleLogo from '../../images/title.svg';
 import { LinkedinOutlined, GithubOutlined } from '@ant-design/icons';
 
 export default function Footer() {

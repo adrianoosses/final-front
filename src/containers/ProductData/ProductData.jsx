@@ -1,6 +1,5 @@
-import React, { Component, useContext } from 'react'
+import React, { Component} from 'react'
 import './ProductData.css'
-import { notification, Input } from 'antd'
 
 import UserScore from '../UserScore/UserScore';
 import Offer from '../Offer/Offer';
@@ -23,39 +22,33 @@ class ProductData extends Component {
             value: ''
          }
     }
+    getProductById(id){
+        console.log("id!!!!!!!--------", id);
+        axios.get(CURRENT_URL + `/product/details?id=${id}`)
+        .then((api) =>{
+            console.log("api.data: ",api.data);
+            console.log("api.data[0]: ",api.data[0]);
+            this.setState({product: api.data[0] });
+            console.log("DESSSSSSSSST", api.data[0].email);
+            localStorage.setItem('dest', api.data[0].email);
+        })
+        .catch( (err) => console.log(err) ) ;
+    }
 
     componentDidMount(){
-        //const {dest, setDest, productSelected} = this.context;
-        //const {dest, setDest} = this.context;
-        let productSelected = localStorage.getItem('productSelected');
-        let product = JSON.parse(productSelected);
-        this.setState({product})
-        //this.props.subscribe(this);
+        this.getProductById(this.props.match.params.id);
         const email = localStorage.getItem('email');
-        console.log("EMAIL: ", email);
         this.setState({email: email});
-        console.log("buyerEmail3:", product.email);
-        //setDest(product.email);
-        localStorage.setItem('dest', product.email); // #context
     }
 
     openChat = () =>{
-        //const {dest, setDest, productSelected} = this.context; // #context
-        //const {dest, setDest} = this.context; // #context
-        let productSelected = localStorage.getItem('productSelected');
-        let product = JSON.parse(productSelected);
-        //setDest(product.email); // #context
-        localStorage.setItem('dest', product.email); // #context
+        localStorage.setItem('dest', this.state.product.email); // #context
         this.props.history.push('/chat');
     }
 
     deleteProduct = () =>{
-        //const {dest, setDest, productSelected} = this.context;
-        let productSelected = localStorage.getItem('productSelected');
         let token = localStorage.getItem('tokenUsr');
-        console.log("tokennnnnnnnnn");
-        let product = JSON.parse(productSelected);
-        axios.delete(CURRENT_URL + `/productfavorite?id=${product.id}`,
+        axios.delete(CURRENT_URL + `/product?id=${this.state.product.id}`,
         { headers: {authorization: token } })
         .then(() =>{
             console.log("product deleted");
@@ -86,9 +79,12 @@ class ProductData extends Component {
                     <br></br>
                     <br></br>
                      
-                    <span className="textStyle">Sell by {this.state.product.name} <UserScore buyerEmail={this.state.product.email}/></span>
+                    <div className="dataSeller">
+                        <div style={{ fontSize: '20px', color: 'black' }}>Sell by {this.state.product.name}</div> 
+                        <UserScore buyerEmail={this.state.product.email}/>
+                    </div>
                     <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => this.openChat()}>Chat</MessageOutlined>
-                    <ProductFavorite />
+                    <ProductFavorite productSel={this.state.product}/>
                     
                     
                     {console.log("proddd", this.state.product)}
@@ -102,13 +98,8 @@ class ProductData extends Component {
                     
                     
                     <h2>Status: {this.state.product.productStatus}</h2>
-                    
-                
                     <p className="textStyle">{this.state.product.price} €</p>
-
-                    <Offer />
-                    
-                    
+                    <Offer productSel={this.state.product}/>
                     </div>
                 </div>
             </div>

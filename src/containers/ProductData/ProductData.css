@@ -88,3 +88,10 @@ width: 40em;
     color: white;
     font-size: 20px;
 }
+
+.dataSeller{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

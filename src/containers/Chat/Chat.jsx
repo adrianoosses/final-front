@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import moment from 'moment'
 import './Chat.css';
 import {CURRENT_URL} from '../../App';
-import {ProductContext} from '../ProductContext/ProductContext';
 
 const Chat = () => {
     const [chats, setChat] = useState('');

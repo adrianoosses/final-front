@@ -62,7 +62,7 @@
 }
 
 .productsButton{
-    width: 7em;
+    width: 12em;
     height: 55px;
     background-color: rgb(0, 161, 81);
     cursor: pointer;
@@ -71,4 +71,23 @@
     border-color: rgb(189, 189, 189);
     color: white;
     font-size: 20px;
+}
+
+.searchAndButtonsNav{
+    margin-top:10px;
+    display: flex;
+    
+}
+.searchNav {
+    margin-top:20 px;
+    display: flex;
+    flex-direction: row;
+}
+
+@media (min-width: 300px){
+    .searchAndButtonsNav { flex-direction: column;}
+}
+
+@media (min-width: 600px){
+    .searchAndButtonsNav { flex-direction: row;}
 }

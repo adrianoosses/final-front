@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import ProductItem from '../../components/ProductItem/ProductItem'
-//import LoaderPage from '../../components/LoaderPage/LoaderPage'
+import { Input } from 'antd'
 import './ProductList.css'
 import {CURRENT_URL} from '../../App';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
@@ -98,20 +98,22 @@ class ProductList extends Component {
     render(){
         const { search, text, products } = this.state;
         return (
-            //<LoaderPage condiction={movies.length === 0} > 
-            //<img src ={''} alt=""></img>
             <>
 
             {console.log("products::", products)}
             <div className="buttonGeneral">
-                <div>
-                    <LeftOutlined onClick={this.onBeforePage} style={{ fontSize: '50px', color: 'gray' }}/> 
-                    <span className="defaultText">{this.state.page}</span>
-                    <RightOutlined onClick={this.onNextPage} style={{ fontSize: '50px', color: 'gray' }}/> 
-                    <input className="defaultText" type="text" onChange={ event => this.onHandleChange(event) } />
-                    <button className="productsButton" onClick={this.getMyProducts}>My Products</button>
-                    <button className="productsButton" onClick={this.handleAllProducts}>All Products</button>
-                    <button className="productsButton" onClick={this.getMyProductsFavorites}>Favorites</button>
+                <div className="searchAndButtonsNav">
+                    <div className="searchNav">
+                        <LeftOutlined onClick={this.onBeforePage} style={{ fontSize: '50px', color: 'gray' }}/> 
+                        <div className="defaultText">{this.state.page}</div>
+                        <RightOutlined onClick={this.onNextPage} style={{ fontSize: '50px', color: 'gray' }}/>
+                        <Input className="defaultText" type="text" onChange={ event => this.onHandleChange(event) } />
+                    </div>
+                    <div className="searchNav">
+                        <button className="productsButton" onClick={this.getMyProducts}>My Products</button>
+                        <button className="productsButton" onClick={this.handleAllProducts}>All Products</button>
+                        <button className="productsButton" onClick={this.getMyProductsFavorites}>Favorites</button>
+                    </div>
                 </div> 
                 
                 <div className = "divGeneral">

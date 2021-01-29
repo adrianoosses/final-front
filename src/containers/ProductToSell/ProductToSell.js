@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 import { notification, Input } from 'antd'
@@ -8,15 +7,12 @@ import {CURRENT_URL} from '../../App';
 import TextArea from 'antd/lib/input/TextArea';
 export default function ProductToSell() {
     const history = useHistory();
-    const [productToSell, setProductToSell] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
     const uploadProduct = async(event) =>{
         try {
             event.preventDefault();
             const form = event.target;
-            let token =  localStorage.getItem('tokenUsr')
-           // console.log("token", token);
 
             let email = localStorage.getItem('email');
             console.log("dest1: ", email)

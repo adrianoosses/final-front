@@ -34,7 +34,7 @@ const Signup = () => {
             console.log("user: ", user);
             console.log("type of user: ", typeof user);
             await axios.post(CURRENT_URL + '/user', user)
-            //notification.success({ message: 'Registered!', description: 'User successfully registered' })
+            notification.success({ message: 'Registered!', description: 'User successfully registered' })
             //history.push('/login')
             history.push('/login')
         } catch (error) {

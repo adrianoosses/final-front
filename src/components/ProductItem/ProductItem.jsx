@@ -7,12 +7,7 @@ class ProductItem extends Component {
     }*/
     static contextType = ProductContext;
     clickSelectProduct(product){
-        const {productSelected, setProductSelected} = this.context; // #context
-        //setProductSelected(JSON.stringify(product)); // #context
-        localStorage.setItem('productSelected', JSON.stringify(product)); // #context
-
-        this.props.history.push('/productdata');
-        
+        this.props.history.push('/productdata/' + product.id);   
     }
     render(){
         return(

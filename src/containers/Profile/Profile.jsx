@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-//import { useHistory } from 'react-router-dom';
-
-import ProductToSell from '../ProductToSell/ProductToSell';
 
 import './Profile.css';
 import {CURRENT_URL} from '../../App';

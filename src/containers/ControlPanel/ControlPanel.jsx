@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import moment from 'moment'
-//import './Chat.css';
-import { useHistory } from 'react-router-dom';
+//import moment from 'moment'
 import {CURRENT_URL} from '../../App';
-import {ProductContext} from '../ProductContext/ProductContext';
 
 const ControlPanel = () => {
-    const history = useHistory();
     const [usersList, setUsersList] = useState('');
-    const [sellerEmail, setSellerEmail] = useState('');
-    const format = "YYYY-MM-DD HH:mm:ss";
-    const currentDate = new Date().getTime();
     const getUsersList = async(event) => {
         try {
 

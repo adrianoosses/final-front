@@ -1,32 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 //import './Chat.css';
 import { useHistory } from 'react-router-dom';
 import {CURRENT_URL} from '../../App';
-import {ProductContext} from '../ProductContext/ProductContext';
 import { notification, Input } from 'antd'
 import './Offer.css'
 
-const Offer = () => {
+const Offer = (props) => {
     const history = useHistory();
     const [offer, setOffer] = useState('');
     const [sellerEmail, setSellerEmail] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
-    // const {dest, setDest, productSelected, setProductSelected} = useContext(ProductContext) // #context
 
     const addOffer = async(event)=> {
         try {
             event.preventDefault();
             const form = event.target;
-            let token =  localStorage.getItem('tokenUsr')
-           // console.log("token", token);
-
             let buyerEmail = localStorage.getItem('email');
             console.log("dest1: ", buyerEmail)
-            let productSelected = localStorage.getItem('productSelected');
-            let product = JSON.parse(productSelected);
+            let product = props.productSel;
             console.log("product", product);
             const itemOffer = {
                 userEmail: buyerEmail, 
@@ -36,28 +30,21 @@ const Offer = () => {
                 updatedAt:moment(currentDate).format(format)
             }
             console.log("itemOffer", itemOffer);
-            let offer = await axios.post(CURRENT_URL + '/offer', itemOffer);
-            console.log("offer:", offer);
-            //setScore(score.data);
+            await axios.post(CURRENT_URL + '/offer', itemOffer);
+            notification.success({ message: 'Sent!', description: 'Offer sent correctly'});
         } catch (error) {
             console.error(error)
         }
     }
-    const getOffer = async(event) => {
+    const getOffer = async() => {
         try {
-
             console.log("GETTING OFER!!");
-            //event.preventDefault();
-            //const form = event.target;
-            let token =  localStorage.getItem('tokenUsr')
-            //console.log("token", token);
             let email = localStorage.getItem('email');
             console.log('email', email);
-            let productSelected = localStorage.getItem('productSelected'); // #context
-            let product = JSON.parse(productSelected);
+            let product = props.productSel;
             let sellerEmailRec = product.email;
             setSellerEmail(sellerEmailRec);
-            console.log("product.id ::",product.id)
+            console.log("product.id :::",product.id)
             let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${product.id}`);
             console.log("itemOffer", itemOffer);
             console.log("itemOffer: ", itemOffer.data[0].offer);
@@ -70,12 +57,11 @@ const Offer = () => {
     const openChatBuyer2 = (destChat) =>{
         console.log("ABRI CHAT A: ", destChat);
         localStorage.setItem('dest', destChat);
-        // setDest(destChat);
         history.push('/chat');
     }
 
     useEffect(() => {
-        getOffer();
+        getOffer()
     }, []);
 
 

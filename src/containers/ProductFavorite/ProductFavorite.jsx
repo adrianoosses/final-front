@@ -1,35 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import moment from 'moment'
-//import './Chat.css';
-import { useHistory } from 'react-router-dom';
 import {CURRENT_URL} from '../../App';
-import {ProductContext} from '../ProductContext/ProductContext';
-import { notification, Input } from 'antd'
+import { notification } from 'antd'
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 
-const ProductFavorite = () => {
-    const history = useHistory();
+const ProductFavorite = (props) => {
+    console.log("PROPS FAVORITES ", props);
     const [added, setAdded] = useState(false);
     const [colorFav, setColorFav] = useState('gray');
-    const [sellerEmail, setSellerEmail] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
-    //const {dest, setDest, productSelected, setProductSelected} = useContext(ProductContext) #context
-    const {dest, setDest} = useContext(ProductContext)
 
     const setProductFavorite = async(event)=> {
         try {
+            console.log("product selected favorites--------------", props.productSel);
             setAdded(true);
-            setColorFav('red');
+            setColorFav('red');  
             event.preventDefault();
-            const form = event.target;
-            let token =  localStorage.getItem('tokenUsr')
-           // console.log("token", token);
-            let productSelected = localStorage.getItem('productSelected'); // #context
             let buyerEmail = localStorage.getItem('email');
-            console.log("dest1: ", buyerEmail)
-            let product = JSON.parse(productSelected);
+            let product = props.productSel;
             console.log("product", product);
             const itemFavorite = {
                 userEmail: buyerEmail, 
@@ -54,8 +44,8 @@ const ProductFavorite = () => {
             event.preventDefault();
             let token = localStorage.getItem('tokenUsr');
             console.log("tokennnnnnnnnn");
-            let productSelected = localStorage.getItem('productSelected'); // #context
-            let product = JSON.parse(productSelected);
+            // #context
+            let product = props.productSel;
             await axios.delete(CURRENT_URL + `/productfavorite?productid=${product.id}`,
             { headers: {authorization: token } })
             .then(() =>{

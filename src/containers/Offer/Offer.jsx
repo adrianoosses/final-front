@@ -36,7 +36,7 @@ const Offer = (props) => {
             console.error(error)
         }
     }
-    const getOffer = async() => {
+    async function getOffer() {
         try {
             console.log("GETTING OFER!!");
             let email = localStorage.getItem('email');
@@ -47,7 +47,7 @@ const Offer = (props) => {
             console.log("product.id :::",product.id)
             let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${product.id}`);
             console.log("itemOffer", itemOffer);
-            console.log("itemOffer: ", itemOffer.data[0].offer);
+            //console.log("itemOffer2: ", itemOffer.data[0].offer);
             setOffer(itemOffer.data);
         } catch (error) {
             console.error(error)
@@ -61,32 +61,33 @@ const Offer = (props) => {
     }
 
     useEffect(() => {
-        getOffer()
+        getOffer();
     }, []);
 
 
     return (
         <>
-        {console.log("offer", offer)}
-        {sellerEmail === localStorage.getItem('email') ?
+        {props.productSel.email === localStorage.getItem('email') ?
+        
         <>
-                {offer ?
-                    <>
-                        <p>Offers received: </p>
-                        {console.log(offer)}
-                        {offer.map( item => <>
-                        <span>Product title: {item.title}-</span>
-                        <span>Value: {item.offerValue}-</span>
-                        <span>Email: {item.email}</span>
-                        <button onClick = {() => openChatBuyer2(item.email)}>Chat</button>
-                        <p></p>
-                        
-                        </>
-                        )}
-                    </>:<>
-                        <p>No offer yet</p>
+            {offer ?
+                <>
+                    <p>Offers received: </p>
+                    <button onClick={getOffer}>Show</button>
+                    {console.log(offer)}
+                    {offer.map( item => <>
+                    <span>Product title: {item.title}-</span>
+                    <span>Value: {item.offerValue}-</span>
+                    <span>Email: {item.email}</span>
+                    <button onClick = {() => openChatBuyer2(item.email)}>Chat</button>
+                    <p></p>
+                    
                     </>
-                }
+                    )}
+                </>:<>
+                    <p>No offer yet</p>
+                </>
+            }
         </>:<>
             <form className="send" onSubmit={addOffer}>
                 <div className="textStyle"> <Input type="number" name="addoffer"/>

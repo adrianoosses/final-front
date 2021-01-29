@@ -32,9 +32,21 @@ class ProductList extends Component {
         const email = localStorage.getItem('email');
         axios.get(CURRENT_URL + `/product?page=${page}&email=${email}`)
         .then((api) =>{
-            console.log("productssssssss: ",api.data);
             this.setState = this.setState.bind(this);
             this.setState({products: api.data });
+        })
+        .catch( (err) => console.log(err) ) ;
+    }
+
+    getMyProductsFavorites = () => {
+        //const page = (this.state.page);
+        const page = 1;
+        const email = localStorage.getItem('email');
+        axios.get(CURRENT_URL + `/productfavorite?page=${page}&email=${email}`)
+        .then((api) =>{
+            this.setState = this.setState.bind(this);
+            this.setState({products: api.data });
+            console.log("products to favorite: ", api.data)
         })
         .catch( (err) => console.log(err) ) ;
     }
@@ -49,28 +61,12 @@ class ProductList extends Component {
 
     handleMyProducts(){
         this.getMyProducts(this.state.page);
+    }
 
+    handleMyProductsFavorites(){
+        this.getMyProductsFavorites(this.state.page);
     }
    
-    /*
-    addMovies = (page) => {
-        axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=b5138e06a3a9125b8c326498bbeae997&language=en-US&page=${page}`)
-        .then( api => {
-            console.log(api.data.results)
-            this.setState( prevState => ({ movies: prevState.movies.concat(api.data.results) }))
-            console.log("this.state.movies",this.state.movies)
-        })
-        .catch( err => console.log(err));
-    }
-    
-
-    onViewMore = () => {
-        this.setState( prevState => ({ page: prevState.page + 1}), () => {
-            this.addMovies(this.state.page);
-            console.log(this.state.page)
-        }); 
-    }
-    */
 
     onNextPage = () => {
         this.setState( prevState => ({ page: prevState.page + 1}), () => {
@@ -115,6 +111,7 @@ class ProductList extends Component {
                     <input className="defaultText" type="text" onChange={ event => this.onHandleChange(event) } />
                     <button className="productsButton" onClick={this.getMyProducts}>My Products</button>
                     <button className="productsButton" onClick={this.handleAllProducts}>All Products</button>
+                    <button className="productsButton" onClick={this.getMyProductsFavorites}>Favorites</button>
                 </div> 
                 
                 <div className = "divGeneral">
@@ -125,7 +122,6 @@ class ProductList extends Component {
                     }
                 </div>
                 
-                <button onClick={() => this.onViewMore()}> View more </button>
             </div>   
         </>
             //</LoaderPage>

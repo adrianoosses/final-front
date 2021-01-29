@@ -1,19 +1,15 @@
 import React, {Component} from 'react'
 import './ProductItem.css'
-
+import {ProductContext} from '../../containers/ProductContext/ProductContext';
 class ProductItem extends Component {
     /*constructor(props){
         super(props);
     }*/
-
+    static contextType = ProductContext;
     clickSelectProduct(product){
-        //console.log(movie.original_title)
-        console.log("product set storage",product)
-        localStorage.setItem('product', JSON.stringify(product));
-        //console.log("this",this);
-        //console.log("this.props",this.props);
-        //console.log("this.props.history",this.props.history);
-        //console.log("props",props);
+        const {productSelected, setProductSelected} = this.context; // #context
+        //setProductSelected(JSON.stringify(product)); // #context
+        localStorage.setItem('productSelected', JSON.stringify(product)); // #context
 
         this.props.history.push('/productdata');
         

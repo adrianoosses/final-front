@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import moment from 'moment'
 //import './Chat.css';
 import { useHistory } from 'react-router-dom';
 import {CURRENT_URL} from '../../App';
+import {ProductContext} from '../ProductContext/ProductContext';
+import { notification, Input } from 'antd'
+import './Offer.css'
+
 const Offer = () => {
     const history = useHistory();
     const [offer, setOffer] = useState('');
     const [sellerEmail, setSellerEmail] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
+    // const {dest, setDest, productSelected, setProductSelected} = useContext(ProductContext) // #context
 
     const addOffer = async(event)=> {
         try {
@@ -20,7 +25,8 @@ const Offer = () => {
 
             let buyerEmail = localStorage.getItem('email');
             console.log("dest1: ", buyerEmail)
-            let product = JSON.parse(localStorage.getItem('product'));
+            let productSelected = localStorage.getItem('productSelected');
+            let product = JSON.parse(productSelected);
             console.log("product", product);
             const itemOffer = {
                 userEmail: buyerEmail, 
@@ -47,8 +53,8 @@ const Offer = () => {
             //console.log("token", token);
             let email = localStorage.getItem('email');
             console.log('email', email);
-            
-            let product = JSON.parse(localStorage.getItem('product'));
+            let productSelected = localStorage.getItem('productSelected'); // #context
+            let product = JSON.parse(productSelected);
             let sellerEmailRec = product.email;
             setSellerEmail(sellerEmailRec);
             console.log("product.id ::",product.id)
@@ -62,7 +68,9 @@ const Offer = () => {
     }
 
     const openChatBuyer2 = (destChat) =>{
-        localStorage.setItem('seller', destChat);
+        console.log("ABRI CHAT A: ", destChat);
+        localStorage.setItem('dest', destChat);
+        // setDest(destChat);
         history.push('/chat');
     }
 
@@ -95,8 +103,8 @@ const Offer = () => {
                 }
         </>:<>
             <form className="send" onSubmit={addOffer}>
-                <span>Offer: <input type="number" name="addoffer"/></span>
-                <button type="submit">Send</button>
+                <div className="textStyle"> <Input type="number" name="addoffer"/>
+                <button className="offerButton" type="submit">Make an offer</button></div>
             </form>        
         </>
         }

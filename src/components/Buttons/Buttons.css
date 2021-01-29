@@ -1,17 +1,15 @@
 
 .buttons{
     display: flex;
-    flex-direction: row;
     background-color: rgb(6, 0, 56);
-    height: 4em;
+    
     color: white;
     font-size: 20px;
     align-items: right;
     justify-content: space-between
-    
 }
 .containerLogo{
-    height: 80%;
+    height: 50%;
 }
 .loginImage{
     margin-top: 0.5em;
@@ -20,8 +18,7 @@
     opacity: 90%;
 }
 .loginLogo{
-    height: 100%;
-    width: 4em;
+    height: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,4 +29,16 @@
 .loginLogo:hover{
     opacity: 100%;
     background-color: rgb(4, 0, 37);
+}
+
+@media (min-width: 300px){
+    .buttons { flex-direction: column;}
+}
+
+@media (min-width: 600px){
+    .buttons { flex-direction: row;}
+}
+
+@media (min-width: 900px){
+    .buttons { flex-direction: row;}
 }

@@ -1,13 +1,17 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, useContext } from 'react'
 import './ProductData.css'
+import { notification, Input } from 'antd'
 
 import UserScore from '../UserScore/UserScore';
 import Offer from '../Offer/Offer';
+import ProductFavorite from '../ProductFavorite/ProductFavorite'
 import axios from 'axios'
 import { MessageOutlined } from '@ant-design/icons';
 
 import {CURRENT_URL} from '../../App';
+import {ProductContext} from '../ProductContext/ProductContext';
 class ProductData extends Component {
+    static contextType = ProductContext;
     constructor(props){
         super(props)
 
@@ -15,77 +19,60 @@ class ProductData extends Component {
             email: "",
             product: [],
             //days: 0,
-            msg: ""
+            msg: "",
+            value: ''
          }
     }
 
     componentDidMount(){
-        //console.log("item", props.item);
-        let product = JSON.parse(localStorage.getItem('product'));
+        //const {dest, setDest, productSelected} = this.context;
+        //const {dest, setDest} = this.context;
+        let productSelected = localStorage.getItem('productSelected');
+        let product = JSON.parse(productSelected);
         this.setState({product})
         //this.props.subscribe(this);
         const email = localStorage.getItem('email');
         console.log("EMAIL: ", email);
         this.setState({email: email});
         console.log("buyerEmail3:", product.email);
-        localStorage.setItem('seller', product.email);
+        //setDest(product.email);
+        localStorage.setItem('dest', product.email); // #context
     }
 
     openChat = () =>{
-        let product = JSON.parse(localStorage.getItem('product'));
-        localStorage.setItem('seller', product.email);
+        //const {dest, setDest, productSelected} = this.context; // #context
+        //const {dest, setDest} = this.context; // #context
+        let productSelected = localStorage.getItem('productSelected');
+        let product = JSON.parse(productSelected);
+        //setDest(product.email); // #context
+        localStorage.setItem('dest', product.email); // #context
         this.props.history.push('/chat');
     }
 
     deleteProduct = () =>{
+        //const {dest, setDest, productSelected} = this.context;
+        let productSelected = localStorage.getItem('productSelected');
         let token = localStorage.getItem('tokenUsr');
         console.log("tokennnnnnnnnn");
-        let product = JSON.parse(localStorage.getItem('product'));
-        axios.delete(CURRENT_URL + `/product?id=${product.id}`,
+        let product = JSON.parse(productSelected);
+        axios.delete(CURRENT_URL + `/productfavorite?id=${product.id}`,
         { headers: {authorization: token } })
         .then(() =>{
             console.log("product deleted");
         })
-
         this.props.history.push('/');
     }
+    
 
     openChatBuyer2 = (destChat) =>{
-        localStorage.setItem('seller', destChat);
+        localStorage.setItem('dest', destChat); // #context
         this.props.history.push('/chat');
     }
 
-    /*
-    rentMovie = async (days) =>{
-        console.log("Rent a movie now!");
-        try{
-            
-            //console.log("email", email);
-            let token =  localStorage.getItem('tokenUsr');
-            let reqUser = await axios.get(`https://backend-movie-service.herokuapp.com/user/profile?email=${this.state.email}`,
-            { headers: {authorization: token} });
-            let idUser = await reqUser.data._id;
-            console.log(reqUser.data._id)
-            const order = {
-                "userId": idUser,
-                "movieId": this.state.movie.id,
-                "daysToRent": days
-            }
-            //console.log("order: ", order);
-            let reqOrder = await axios.post(`https://backend-movie-service.herokuapp.com/order/`, order);
-            console.log("reqorder: ", await reqOrder);
-            this.setState({msg: await reqOrder.data.msg});
-        }catch(e){
-            console.log("error", typeof(e));
-            console.log("error code", e.response.status);
-            if(e.response.status === 400) this.setState({msg:"Not logged"});
-            
-        }
-    }
-    */
     render(){
         return (
             <>
+            
             <div className='generalContainerProductData'>
                 <div className='containerProductData'>
                 
@@ -99,9 +86,11 @@ class ProductData extends Component {
                     <br></br>
                     <br></br>
                      
-                    <span className="textStyle">Sell by {this.state.product.name}</span>
+                    <span className="textStyle">Sell by {this.state.product.name} <UserScore buyerEmail={this.state.product.email}/></span>
                     <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => this.openChat()}>Chat</MessageOutlined>
-                    <UserScore buyerEmail={this.state.product.email}/>
+                    <ProductFavorite />
+                    
+                    
                     {console.log("proddd", this.state.product)}
                     {(this.state.product.email === localStorage.getItem('email')) ?
                     <>
@@ -114,14 +103,16 @@ class ProductData extends Component {
                     
                     <h2>Status: {this.state.product.productStatus}</h2>
                     
+                
                     <p className="textStyle">{this.state.product.price} €</p>
 
                     <Offer />
-
+                    
                     
                     </div>
                 </div>
             </div>
+            
             </>
             
         )

@@ -4,6 +4,8 @@ import moment from 'moment'
 //import './Chat.css';
 import { useHistory } from 'react-router-dom';
 import {CURRENT_URL} from '../../App';
+import {ProductContext} from '../ProductContext/ProductContext';
+
 const ControlPanel = () => {
     const history = useHistory();
     const [usersList, setUsersList] = useState('');
@@ -21,10 +23,6 @@ const ControlPanel = () => {
             let email = localStorage.getItem('email');
             console.log('email', email);
             
-            let product = JSON.parse(localStorage.getItem('product'));
-            let sellerEmailRec = product.email;
-            setSellerEmail(sellerEmailRec);
-            console.log("product.id ::",product.id)
             let usersListData = await axios.get(CURRENT_URL + '/user/list', 
             { headers: {authorization: token } });
             console.log("usersList", usersListData);

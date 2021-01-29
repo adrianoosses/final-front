@@ -1,5 +1,6 @@
 import React from 'react'
 import '../Header/Header.css'
+//import titleLogo from '../../images/title.png';
 import titleLogo from '../../images/title.svg';
 
 export default function Header() {

@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import moment from 'moment'
 import './Chat.css';
 import {CURRENT_URL} from '../../App';
+import {ProductContext} from '../ProductContext/ProductContext';
 
 const Chat = () => {
     const [chats, setChat] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
+    //const {dest} = useContext(ProductContext); // #context
+    //const value = useContext(ProductData);
     const getChat = async()=> {
         try {
             let token =  localStorage.getItem('tokenUsr')
             console.log("token", token);
             console.log("get profile");
+            let dest = localStorage.getItem('dest');
+            console.log("DEST: ", dest);
             let email = localStorage.getItem('email');
-            let dest = localStorage.getItem('seller');
+            let destEmail = dest;
             //let destObj = await axios.get(`http://127.0.0.1:3001/user?email=${dest}`);
-            let chat = await axios.get(CURRENT_URL + `/chat?srcemail=${email}&dstemail=${dest}`,
+            let chat = await axios.get(CURRENT_URL + `/chat?srcemail=${email}&dstemail=${destEmail}`,
             { headers: {authorization: token} });
             //let chat = await axios.get(`http://127.0.0.1:3001/chat?userid=${destObj.data[0].id}`, 
             
@@ -39,8 +44,9 @@ const Chat = () => {
             let srcObj = await axios.get(CURRENT_URL + `/user?email=${email}`);
             console.log("srcObj", srcObj);
             const srcId = srcObj.data[0].id;
-            let dest = localStorage.getItem('seller');
-            let destObj = await axios.get(CURRENT_URL + `/user?email=${dest}`);
+            let dest = localStorage.getItem('dest'); // #context
+            let destEmail = dest
+            let destObj = await axios.get(CURRENT_URL + `/user?email=${destEmail}`);
             console.log("destObj", destObj);
             const destId = destObj.data[0].id;
             const chatItem = { 
@@ -67,11 +73,12 @@ const Chat = () => {
     useEffect(() => {
         //document.title = `You clicked ${count} times`;
         getChat();
-    });
+    }, []);
 
     return (
         <>
-            <h2>Chat</h2>
+            <h2>Chat with: {localStorage.getItem('dest')}</h2>
+            {/*<div>{value}</div>*/}
             <div className = "generalContainerChat">
             <div className = "containerChat">
                 {chats.length ?

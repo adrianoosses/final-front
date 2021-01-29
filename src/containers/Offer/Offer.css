@@ -77,14 +77,27 @@ width: 40em;
 
 }
 
-.productsButton{
-    width: 7em;
-    height: 55px;
+.offerButton{
+    width: 70%;
+    height: 3em;
     background-color: rgb(0, 161, 81);
     cursor: pointer;
     border-style: solid;
     border-width: 2px;
     border-color: rgb(189, 189, 189);
+    margin-right: 10px;
     color: white;
     font-size: 20px;
+}
+
+.offerButton:hover{
+    background-color:rgb(0, 190, 95);;
+
+}
+.textStyle{
+    width: 20em;
+    margin-top: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between
 }

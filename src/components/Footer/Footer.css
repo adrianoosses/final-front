@@ -1,4 +1,16 @@
 .footerContainer{
-    background-color: rgb(6, 0, 56);;
+    background-color: rgb(6, 0, 56);
     height: 10em;
+}
+
+.contentFooter{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+
+.iconStyle{
+    color:  rgb(86, 79, 153)
 }

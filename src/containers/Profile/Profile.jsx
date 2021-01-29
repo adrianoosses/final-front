@@ -3,7 +3,6 @@ import axios from 'axios';
 //import { useHistory } from 'react-router-dom';
 
 import ProductToSell from '../ProductToSell/ProductToSell';
-import OffersProfile from '../OffersProfile/OffersProfile';
 
 import './Profile.css';
 import {CURRENT_URL} from '../../App';

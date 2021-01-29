@@ -23,7 +23,7 @@ const Signup = () => {
                 "lastName": form.name.value,
                 "password": form.password.value,
                 "email": form.email.value ,
-                "role": form.role.value,
+                "role": "Client",
                 "birthDate": form.birthDate.value,
                 "address": form.address.value,
                 "phone": form.phone.value,
@@ -53,7 +53,6 @@ const Signup = () => {
                         <div className="textStyle"><div>Last name: </div><Input className="box" type="text" name="lastName" placeholder="Last name" /></div>
                         <div className="textStyle"><div>Password:</div> <Input className="box" type="password" name="password" placeholder="Password" /></div>
                         <div className="textStyle"><div>Email: </div><Input className="box" type="email" name="email" placeholder="Email" /></div>
-                        <div className="textStyle"><div>Role:</div> <Input className="box" type="text" name="role" placeholder="Role" /></div>
                         <div className="textStyle"><div>Birth date: </div><Input className="box" type="text" name="birthDate" placeholder="yyyy/mm/dd" /></div>
                         <div className="textStyle"><div>Address:</div> <Input className="box" type="text" name="address" placeholder="Country Street Number" /></div>
                         <div className="textStyle"><div>Phone: </div><Input className="box" type="number" name="phone" placeholder="123 45 67 89" /></div>

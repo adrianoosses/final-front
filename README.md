@@ -11,9 +11,14 @@ Backend part: https://github.com/adrianoosses/final-back
 ## SET UP
 <a name="db"></a>
 Option 1: Heroku
-Option 2: 
+Option 2: Local
+1. Clone the repository:
 ```
 git clone <name-of-this-repo.git>
+```
+2. Change the back path into App.js:
+```
+export const CURRENT_URL = 'http://127.0.0.1:3001';
 ```
 ## DATA BASE
 ![Database](src/images/diagram10.svg)
@@ -22,11 +27,10 @@ git clone <name-of-this-repo.git>
 Option 2:
 Type:
 ```
-npm install
-nodemon app.js
+npm start
 ```
 
-1) Main view
+1) Main view. Click on Log In button, on top-right corner.
 ![1ss](src/images/tutorial/1_ppal.JPG)
 
 2) First click on Sign up. If you don't have account yet, click on Sign up.
@@ -36,7 +40,7 @@ nodemon app.js
 ![3](src/images/tutorial/3_signup_fill.JPG)
 
 4) Then, you can appreciate new buttons on top
-![4])(src/images/tutorial/4_ppal_logged.JPG)
+![4](src/images/tutorial/4_ppal_logged.JPG)
 
 5) Click on some product to see details. Now you can add to favorites, make an offer to seller, score or send him a message.
 ![5](src/images/tutorial/5_product-data.JPG)

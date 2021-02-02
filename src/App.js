@@ -22,8 +22,8 @@ import {ProductProvider} from './containers/ProductContext/ProductContext';
 
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-//export const CURRENT_URL = 'https://mejorprecio-back.herokuapp.com';
-export const CURRENT_URL = 'http://127.0.0.1:3001';
+export const CURRENT_URL = 'https://mejorprecio-back.herokuapp.com';
+//export const CURRENT_URL = 'http://127.0.0.1:3001';
 function App() {
   const [user, setUser] = useState(localStorage.getItem('email'));
   /*

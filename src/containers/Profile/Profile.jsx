@@ -16,8 +16,8 @@ export default class Profile extends Component {
     async getUser(){
         try {
             let token =  localStorage.getItem('tokenUsr')
-            console.log("token", token);
-            console.log("get profile");
+            // console.log("token", token);
+            // console.log("get profile");
             let email = localStorage.getItem('email');
             let reqUser = await axios.get(CURRENT_URL + `/user?email=${email}`, 
             { headers: {authorization: token} });
@@ -33,11 +33,11 @@ export default class Profile extends Component {
     }
 
     getProduct = async () =>{
-        console.log("Showing products...");
+        // console.log("Showing products...");
         let token =  localStorage.getItem('tokenUsr')
         const email = this.getEmail();
         if(!email){
-            console.log("Log In first")
+            //console.log("Log In first")
             return false;
         }
 
@@ -55,7 +55,7 @@ export default class Profile extends Component {
     render() {
         let userObj = this.state.users;
         let productsObj = this.state.products;
-        console.log("productsObj:", productsObj);
+        //console.log("productsObj:", productsObj);
         return (
             <>
             <div className='generalContainerProductData'>

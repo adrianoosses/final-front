@@ -23,13 +23,13 @@ class ProductData extends Component {
          }
     }
     getProductById(id){
-        console.log("id!!!!!!!--------", id);
+        //console.log("id!!!!!!!--------", id);
         axios.get(CURRENT_URL + `/product/details?id=${id}`)
         .then((api) =>{
-            console.log("api.data: ",api.data);
-            console.log("api.data[0]: ",api.data[0]);
+            //console.log("api.data: ",api.data);
+            //console.log("api.data[0]: ",api.data[0]);
             this.setState({product: api.data[0] });
-            console.log("DESSSSSSSSST", api.data[0].email);
+            //console.log("DESSSSSSSSST", api.data[0].email);
             localStorage.setItem('dest', api.data[0].email);
         })
         .catch( (err) => console.log(err) ) ;
@@ -87,7 +87,7 @@ class ProductData extends Component {
                     <ProductFavorite productSel={this.state.product}/>
                     
                     
-                    {console.log("proddd", this.state.product)}
+                    {/*console.log("proddd", this.state.product)*/}
                     {(this.state.product.email === localStorage.getItem('email')) ?
                     <>
                         <button onClick={this.deleteProduct}>DELETE PRODUCT</button>

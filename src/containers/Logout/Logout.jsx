@@ -3,7 +3,7 @@ import { notification } from 'antd'
 import { useHistory } from 'react-router-dom';
 const Logout = (props) => {
     const history = useHistory();
-    console.log("logging out");
+    //console.log("logging out");
     try {
         localStorage.clear();
         props.setUser(null)  

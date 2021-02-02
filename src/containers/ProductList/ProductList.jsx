@@ -20,7 +20,7 @@ class ProductList extends Component {
     getProducts(page){
         axios.get(CURRENT_URL + `/product?page=${page}`)
         .then((api) =>{
-            console.log("productssssssss: ",api.data);
+            //console.log("productssssssss: ",api.data);
             this.setState({products: api.data });
         })
         .catch( (err) => console.log(err) ) ;
@@ -40,15 +40,20 @@ class ProductList extends Component {
 
     getMyProductsFavorites = () => {
         //const page = (this.state.page);
+        let token =  localStorage.getItem('tokenUsr')
         const page = 1;
         const email = localStorage.getItem('email');
-        axios.get(CURRENT_URL + `/productfavorite?page=${page}&email=${email}`)
+        axios.get(CURRENT_URL + `/productfavorite?page=${page}&email=${email}`, 
+        { headers: {authorization: token } })
         .then((api) =>{
             this.setState = this.setState.bind(this);
             this.setState({products: api.data });
-            console.log("products to favorite: ", api.data)
+            //console.log("products to favorite: ", api.data)
         })
-        .catch( (err) => console.log(err) ) ;
+        .catch( (err) => {
+            this.setState({products: []});
+            console.log(err)
+        }  ) ;
     }
 
     componentDidMount(){
@@ -71,7 +76,7 @@ class ProductList extends Component {
     onNextPage = () => {
         this.setState( prevState => ({ page: prevState.page + 1}), () => {
             this.getProducts(this.state.page);
-            console.log(this.state.page)
+            //console.log(this.state.page)
         });
     }
 
@@ -79,7 +84,7 @@ class ProductList extends Component {
         if(this.state.page > 1){
             this.setState( prevState => ({ page: prevState.page - 1}), () => {
                 this.getProducts(this.state.page);
-                console.log(this.state.page)
+                //console.log(this.state.page)
             });
         }else{
             console.log(this.state.page)
@@ -88,7 +93,7 @@ class ProductList extends Component {
 
     onHandleChange = (event) => {
         this.setState({ text: event.target.value }, () => {
-            console.log("event.target.value", event.target.value)
+            //console.log("event.target.value", event.target.value)
             const data = this.state.products
                 .filter( item => item.title.toLowerCase().includes(this.state.text.toLowerCase()) )
             this.setState({ search: data});   
@@ -99,8 +104,7 @@ class ProductList extends Component {
         const { search, text, products } = this.state;
         return (
             <>
-
-            {console.log("products::", products)}
+            {/*console.log("products::", products)*/}
             <div className="buttonGeneral">
                 <div className="searchAndButtonsNav">
                     <div className="searchNav">
@@ -119,7 +123,7 @@ class ProductList extends Component {
                 <div className = "divGeneral">
                 
                     {search.length === 0 && text === ''
-                        ? products.map( item => <div className="containerItem"><ProductItem item={item} history={this.props.history}/></div>)
+                        ? products.map( item => <div className="containerItem" key={item.id}><ProductItem item={item} history={this.props.history}/></div>)
                         : search.map( item => <div><ProductItem item={item} history={this.props.history}/></div>)
                     }
                 </div>

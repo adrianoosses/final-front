@@ -11,16 +11,16 @@ const Login = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const handleSubmit = async (event) => {
-        console.log("Logging");
+        //console.log("Logging");
         try {
             event.preventDefault();
             let msgReceived = await axios.post(CURRENT_URL + '/user/login', {email, password});
             let token = await msgReceived.data.token;
-            console.log("msgReceived: ", msgReceived);
+            //console.log("msgReceived: ", msgReceived);
             localStorage.setItem('tokenUsr', token);
             localStorage.setItem('email', email);
-            console.log("Email: ", email);
-            //console.log("token rec: ", token);
+            //console.log("Email: ", email);
+            console.log("token rec: ", token);
             props.setUser(email);
             notification.success({ message: 'Logged!', description: 'User logged'});
             history.push('/');

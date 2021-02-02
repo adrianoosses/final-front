@@ -3,50 +3,57 @@ import axios from 'axios';
 import moment from 'moment'
 import './Chat.css';
 import {CURRENT_URL} from '../../App';
+import { useHistory } from 'react-router-dom';
+import { notification, Input } from 'antd'
+
 
 const Chat = () => {
     const [chats, setChat] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
+    const history = useHistory();
     //const {dest} = useContext(ProductContext); // #context
     //const value = useContext(ProductData);
     const getChat = async()=> {
         try {
             let token =  localStorage.getItem('tokenUsr')
-            console.log("token", token);
-            console.log("get profile");
+            //console.log("token", token);
+            //console.log("get profile");
             let dest = localStorage.getItem('dest');
-            console.log("DEST: ", dest);
+            //console.log("DEST: ", dest);
             let email = localStorage.getItem('email');
             let destEmail = dest;
             //let destObj = await axios.get(`http://127.0.0.1:3001/user?email=${dest}`);
             let chat = await axios.get(CURRENT_URL + `/chat?srcemail=${email}&dstemail=${destEmail}`,
             { headers: {authorization: token} });
+            //console.log("------------CHAT", chat);
             //let chat = await axios.get(`http://127.0.0.1:3001/chat?userid=${destObj.data[0].id}`, 
             
             //console.log("chat2:", chat);
             setChat(chat.data);
         } catch (error) {
+            history.push('/');
+            notification.error({ message: 'Unauthorized', description: 'Log in first' })
             console.error(error)
         }
     }
     
     const sendMessage = async(event) => {
         try {
-            console.log("sending msg");
+            //console.log("sending msg");
             event.preventDefault();
             const form = event.target;
             let token =  localStorage.getItem('tokenUsr')
-            console.log("token", token);
-            console.log("get profile");
+            //console.log("token", token);
+            //console.log("get profile");
             let email = localStorage.getItem('email');
             let srcObj = await axios.get(CURRENT_URL + `/user?email=${email}`);
-            console.log("srcObj", srcObj);
+            //console.log("srcObj", srcObj);
             const srcId = srcObj.data[0].id;
             let dest = localStorage.getItem('dest'); // #context
             let destEmail = dest
             let destObj = await axios.get(CURRENT_URL + `/user?email=${destEmail}`);
-            console.log("destObj", destObj);
+            //console.log("destObj", destObj);
             const destId = destObj.data[0].id;
             const chatItem = { 
                 source:srcId , 
@@ -56,14 +63,15 @@ const Chat = () => {
                 createdAt: moment(currentDate).format(format),
                 updatedAt: moment(currentDate).format(format)
             }
-            console.log("chatItem", chatItem);
-            await axios.post(CURRENT_URL + `/chat`, chatItem);
+            //console.log("chatItem", chatItem);
+            await axios.post(CURRENT_URL + `/chat`, chatItem,
+            { headers: {authorization: token} });
             
                 //document.title = `You clicked ${count} times`;
             getChat();
             
             //this.setState({chats: await chat.data})
-            //history.push('/');
+            
         } catch (error) {
             console.error(error)
         }
@@ -98,7 +106,7 @@ const Chat = () => {
                     </>
                 }
                 <form className="send" onSubmit={sendMessage}>
-                    <p>Message: <input type="text" name="message"/></p>
+                    <p>Message: <Input type="text" name="message"/></p>
                     <button type="submit">Send</button>
                 </form>  
                 </div>

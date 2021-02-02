@@ -15,7 +15,7 @@ export default function ProductToSell() {
             const form = event.target;
 
             let email = localStorage.getItem('email');
-            console.log("dest1: ", email)
+            // console.log("dest1: ", email)
             const itemProduct = {
                 sellerEmail: email, 
                 title: form.productTitle.value,
@@ -27,9 +27,9 @@ export default function ProductToSell() {
                 updatedAt:moment(currentDate).format(format),
                 mainImage: form.productImage.value,
             }
-            let product = await axios.post(CURRENT_URL + `/product`, itemProduct);
+            await axios.post(CURRENT_URL + `/product`, itemProduct);
 
-            console.log("product:", product);
+            // console.log("product:", product);
             notification.success({ message: 'Added!', description: 'Product added'});
             history.push('/');
             //setScore(score.data);

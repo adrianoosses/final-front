@@ -11,17 +11,19 @@ const Offer = (props) => {
     const history = useHistory();
     const [offer, setOffer] = useState('');
     const [sellerEmail, setSellerEmail] = useState('');
+    // const [setSellerEmail] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
 
     const addOffer = async(event)=> {
         try {
+            let token =  localStorage.getItem('tokenUsr')
             event.preventDefault();
             const form = event.target;
             let buyerEmail = localStorage.getItem('email');
-            console.log("dest1: ", buyerEmail)
+            //console.log("dest1: ", buyerEmail)
             let product = props.productSel;
-            console.log("product", product);
+            //console.log("product", product);
             const itemOffer = {
                 userEmail: buyerEmail, 
                 productId: product.id,
@@ -29,33 +31,40 @@ const Offer = (props) => {
                 createdAt:moment(currentDate).format(format),
                 updatedAt:moment(currentDate).format(format)
             }
-            console.log("itemOffer", itemOffer);
-            await axios.post(CURRENT_URL + '/offer', itemOffer);
+            //console.log("itemOffer", itemOffer);
+            await axios.post(CURRENT_URL + '/offer', itemOffer, 
+            { headers: {authorization: token } });
             notification.success({ message: 'Sent!', description: 'Offer sent correctly'});
         } catch (error) {
+            history.push('/');
+            notification.error({ message: 'Unauthorized', description: 'Log in first' })
             console.error(error)
         }
     }
     async function getOffer() {
         try {
-            console.log("GETTING OFER!!");
-            let email = localStorage.getItem('email');
-            console.log('email', email);
+            let token =  localStorage.getItem('tokenUsr')
+            //console.log("GETTING OFER!!");
+            //let email = localStorage.getItem('email');
+            //console.log('email', email);
             let product = props.productSel;
             let sellerEmailRec = product.email;
             setSellerEmail(sellerEmailRec);
-            console.log("product.id :::",product.id)
-            let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${product.id}`);
-            console.log("itemOffer", itemOffer);
+            //console.log("product.id :::",product.id)
+            let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${product.id}`, 
+            { headers: {authorization: token } });
+            //console.log("itemOffer", itemOffer);
             //console.log("itemOffer2: ", itemOffer.data[0].offer);
             setOffer(itemOffer.data);
         } catch (error) {
+            //history.push('/');
+            //notification.error({ message: 'Unauthorized', description: 'Log in first' })
             console.error(error)
         }
     }
 
     const openChatBuyer2 = (destChat) =>{
-        console.log("ABRI CHAT A: ", destChat);
+        //console.log("ABRI CHAT A: ", destChat);
         localStorage.setItem('dest', destChat);
         history.push('/chat');
     }
@@ -74,7 +83,7 @@ const Offer = (props) => {
                 <>
                     <p>Offers received: </p>
                     <button onClick={getOffer}>Show</button>
-                    {console.log(offer)}
+                    {/*console.log(offer)*/}
                     {offer.map( item => <>
                     <span>Product title: {item.title}-</span>
                     <span>Value: {item.offerValue}-</span>

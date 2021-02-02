@@ -14,7 +14,7 @@ const Signup = () => {
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
     const handleSubmit = async (event) => {
-        console.log("Registring");
+        //console.log("Registring");
         try {
             event.preventDefault();
             const form = event.target;
@@ -31,8 +31,8 @@ const Signup = () => {
                 "createdAt": moment(currentDate).format(format), //new Date().getTime(),
                 "updatedAt": moment(currentDate).format(format) //new Date().getTime()
             }
-            console.log("user: ", user);
-            console.log("type of user: ", typeof user);
+            //console.log("user: ", user);
+            //console.log("type of user: ", typeof user);
             await axios.post(CURRENT_URL + '/user', user)
             notification.success({ message: 'Registered!', description: 'User successfully registered' })
             //history.push('/login')

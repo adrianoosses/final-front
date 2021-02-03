@@ -5,7 +5,7 @@ import UserScore from '../UserScore/UserScore';
 import Offer from '../Offer/Offer';
 import ProductFavorite from '../ProductFavorite/ProductFavorite'
 import axios from 'axios'
-import { MessageOutlined } from '@ant-design/icons';
+import { MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import {CURRENT_URL} from '../../App';
 import {ProductContext} from '../ProductContext/ProductContext';
@@ -90,7 +90,7 @@ class ProductData extends Component {
                     {/*console.log("proddd", this.state.product)*/}
                     {(this.state.product.email === localStorage.getItem('email')) ?
                     <>
-                        <button onClick={this.deleteProduct}>DELETE PRODUCT</button>
+                        <DeleteOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={this.deleteProduct}/>
                     </>:<>
                     
                     </>

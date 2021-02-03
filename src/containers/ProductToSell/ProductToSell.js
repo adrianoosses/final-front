@@ -16,6 +16,7 @@ export default function ProductToSell() {
 
             let email = localStorage.getItem('email');
             // console.log("dest1: ", email)
+            let token =  localStorage.getItem('tokenUsr')
             const itemProduct = {
                 sellerEmail: email, 
                 title: form.productTitle.value,
@@ -27,13 +28,16 @@ export default function ProductToSell() {
                 updatedAt:moment(currentDate).format(format),
                 mainImage: form.productImage.value,
             }
-            await axios.post(CURRENT_URL + `/product`, itemProduct);
+            await axios.post(CURRENT_URL + `/product`, itemProduct,
+            { headers: {authorization: token} });
 
             // console.log("product:", product);
             notification.success({ message: 'Added!', description: 'Product added'});
             history.push('/');
             //setScore(score.data);
         } catch (error) {
+            history.push('/');
+            notification.error({ message: 'Unauthorized', description: 'Log in first' })
             console.error(error)
         }
     }

@@ -16,7 +16,7 @@ const UserScore = () => {
 
     const setUserScore = async(scoreValue)=> {
         const dest = localStorage.getItem('dest'); // #context
-        let token =  localStorage.getItem('tokenUsr')
+        let token =  localStorage.getItem('tokenUsr');
         try {
             let destObj = await axios.get(CURRENT_URL + `/user?email=${dest}`, 
             { headers: {authorization: token} });

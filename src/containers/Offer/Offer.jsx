@@ -6,14 +6,18 @@ import { useHistory } from 'react-router-dom';
 import {CURRENT_URL} from '../../App';
 import { notification, Input } from 'antd'
 import './Offer.css'
+import { MessageOutlined } from '@ant-design/icons';
 
 const Offer = (props) => {
     const history = useHistory();
     const [offer, setOffer] = useState('');
     const [sellerEmail, setSellerEmail] = useState('');
+    const [product, setProduct] = useState('');
     // const [setSellerEmail] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
+    //setProduct(props.productSel);
+    console.log("PROPS:", props);
 
     const addOffer = async(event)=> {
         try {
@@ -47,15 +51,19 @@ const Offer = (props) => {
             //console.log("GETTING OFER!!");
             //let email = localStorage.getItem('email');
             //console.log('email', email);
-            let product = props.productSel;
-            let sellerEmailRec = product.email;
-            setSellerEmail(sellerEmailRec);
-            //console.log("product.id :::",product.id)
-            let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${product.id}`, 
-            { headers: {authorization: token } });
-            //console.log("itemOffer", itemOffer);
-            //console.log("itemOffer2: ", itemOffer.data[0].offer);
-            setOffer(itemOffer.data);
+            //let product = props.productSel;
+            if(props.productSel){
+                console.log("props.productSel", props.productSel);
+                console.log("product: ", product);
+                let sellerEmailRec = product.email;
+                setSellerEmail(sellerEmailRec);
+                console.log("product.id :::",props)
+                let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${props.productSel.id}`, 
+                { headers: {authorization: token } });
+                //console.log("itemOffer", itemOffer);
+                //console.log("itemOffer2: ", itemOffer.data[0].offer);
+                setOffer(itemOffer.data);
+            }
         } catch (error) {
             //history.push('/');
             //notification.error({ message: 'Unauthorized', description: 'Log in first' })
@@ -79,16 +87,18 @@ const Offer = (props) => {
         {props.productSel.email === localStorage.getItem('email') ?
         
         <>
+            {console.log("offers: ", !!offer)}
             {offer ?
                 <>
                     <p>Offers received: </p>
-                    <button onClick={getOffer}>Show</button>
-                    {/*console.log(offer)*/}
+                    <button className='offerButton' onClick={getOffer}>Show</button>
+                    <p/>
+                    {console.log("OFFERS: ", offer)}
                     {offer.map( item => <>
                     <span>Product title: {item.title}-</span>
                     <span>Value: {item.offerValue}-</span>
                     <span>Email: {item.email}</span>
-                    <button onClick = {() => openChatBuyer2(item.email)}>Chat</button>
+                    <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => openChatBuyer2(item.email)}>Chat</MessageOutlined>
                     <p></p>
                     
                     </>

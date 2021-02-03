@@ -22,7 +22,6 @@ const UserScore = () => {
             { headers: {authorization: token} });
             //console.log("id of score:",destObj );
             const itemScore = {
-                
                 userReceive: destObj.data[0].id, 
                 uScore: scoreValue,
                 createdAt:moment(currentDate).format(format),

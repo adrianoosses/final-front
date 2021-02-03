@@ -33,13 +33,17 @@ const Signup = () => {
             }
             //console.log("user: ", user);
             //console.log("type of user: ", typeof user);
-            await axios.post(CURRENT_URL + '/user', user)
+            await axios.post(CURRENT_URL + '/user', user);
+            //console.log("signup 1",  signupObj);
             notification.success({ message: 'Registered!', description: 'User successfully registered' })
             //history.push('/login')
             history.push('/login')
         } catch (error) {
-            console.error(error)
-            //notification.error({ message: 'Register failed', description: 'there was a problem trying to register the user' })
+            //console.log("signup 2",  signupObj);
+            console.error("error", error);
+            console.error("error.response.data.error", error.response.data.error);
+            if (error.response.data.error==="weak password") notification.error({ message: 'Register failed', description: 'Weak password' })
+            else notification.error({ message: 'Register failed', description: 'there was a problem trying to register the user' })
         }
 
     }
@@ -52,6 +56,7 @@ const Signup = () => {
                         <div className="textStyle"><div>Name: </div><Input className="box" type="text" name="name" placeholder="Name" /></div>
                         <div className="textStyle"><div>Last name: </div><Input className="box" type="text" name="lastName" placeholder="Last name" /></div>
                         <div className="textStyle"><div>Password:</div> <Input className="box" type="password" name="password" placeholder="Password" /></div>
+                        <div className="textStyle"><div>Password must have 8-100 characteres, with uppercase and lowercase, and 2 numbers</div></div>
                         <div className="textStyle"><div>Email: </div><Input className="box" type="email" name="email" placeholder="Email" /></div>
                         <div className="textStyle"><div>Birth date: </div><Input className="box" type="text" name="birthDate" placeholder="yyyy/mm/dd" /></div>
                         <div className="textStyle"><div>Address:</div> <Input className="box" type="text" name="address" placeholder="Country Street Number" /></div>

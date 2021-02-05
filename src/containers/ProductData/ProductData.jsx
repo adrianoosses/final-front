@@ -23,13 +23,11 @@ class ProductData extends Component {
          }
     }
     getProductById(id){
-        //console.log("id!!!!!!!--------", id);
-        axios.get(CURRENT_URL + `/product/details?id=${id}`)
+        let token = localStorage.getItem('tokenUsr');
+        axios.get(CURRENT_URL + `/product/details?id=${id}`, 
+        { headers: {authorization: token } })
         .then((api) =>{
-            //console.log("api.data: ",api.data);
-            //console.log("api.data[0]: ",api.data[0]);
             this.setState({product: api.data[0] });
-            //console.log("DESSSSSSSSST", api.data[0].email);
             localStorage.setItem('dest', api.data[0].email);
         })
         .catch( (err) => console.log(err) ) ;

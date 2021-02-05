@@ -20,7 +20,6 @@ class ProductList extends Component {
     getProducts(page){
         axios.get(CURRENT_URL + `/product?page=${page}`)
         .then((api) =>{
-            //console.log("productssssssss: ",api.data);
             this.setState({products: api.data });
         })
         .catch( (err) => console.log(err) ) ;

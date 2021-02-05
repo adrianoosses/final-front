@@ -1,5 +1,5 @@
 import React, { Component} from 'react'
-import './ProductData.css'
+
 
 import UserScore from '../UserScore/UserScore';
 import Offer from '../Offer/Offer';
@@ -9,6 +9,7 @@ import { MessageOutlined, DeleteOutlined } from '@ant-design/icons';
 
 import {CURRENT_URL} from '../../App';
 import {ProductContext} from '../ProductContext/ProductContext';
+import './ProductData.css'
 class ProductData extends Component {
     static contextType = ProductContext;
     constructor(props){
@@ -64,40 +65,40 @@ class ProductData extends Component {
         return (
             <>
             
-            <div className='generalContainerProductData'>
-                <div className='containerProductData'>
+            <div className='generalContainerProductDataView'>
+                <div className='containerProductDataView'>
                 
-                    <div className="containerProduct">
+                    <div className="containerProductView">
                         <h2>{this.state.product.title}</h2>
                         <img className = 'imageProduct' src ={this.state.product.mainImage} alt=""></img>
                         <p style={{ fontSize: '18px', color: 'gray' }}>{this.state.product.description}</p>
                     </div>
                     
-                    <div className="containerData">
-                    <br></br>
-                    <br></br>
-                     
-                    <div className="dataSeller">
-                        <div style={{ fontSize: '20px', color: 'black' }}>Sell by {this.state.product.name}</div> 
-                        <UserScore buyerEmail={this.state.product.email}/>
-                    </div>
-                    <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => this.openChat()}>Chat</MessageOutlined>
-                    <ProductFavorite productSel={this.state.product}/>
-                    
-                    
-                    {/*console.log("proddd", this.state.product)*/}
-                    {(this.state.product.email === localStorage.getItem('email')) ?
-                    <>
-                        <DeleteOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={this.deleteProduct}/>
-                    </>:<>
-                    
-                    </>
-                    }
-                    
-                    
-                    <h2>Status: {this.state.product.productStatus}</h2>
-                    <p className="textStyle">{this.state.product.price} €</p>
-                    <Offer productSel={this.state.product}/>
+                    <div className="containerDataView">
+                        <br></br>
+                        <br></br>
+                        
+                        <div className="dataSeller">
+                            <div style={{ fontSize: '20px', color: 'black' }}>Sell by {this.state.product.name}</div> 
+                            <UserScore buyerEmail={this.state.product.email}/>
+                        </div>
+                        <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => this.openChat()}>Chat</MessageOutlined>
+                        <ProductFavorite productSel={this.state.product}/>
+                        
+                        
+                        {/*console.log("proddd", this.state.product)*/}
+                        {(this.state.product.email === localStorage.getItem('email')) ?
+                        <>
+                            <DeleteOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={this.deleteProduct}/>
+                        </>:<>
+                        
+                        </>
+                        }
+                        
+                        
+                        <h2>Status: {this.state.product.productStatus}</h2>
+                        <p className="textStyle">{this.state.product.price} €</p>
+                        <Offer productSel={this.state.product}/>
                     </div>
                 </div>
             </div>

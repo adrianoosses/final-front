@@ -33,6 +33,9 @@ npm start
 1) Main view. Click on Log In button, on top-right corner.
 ![1ss](src/images/tutorial/1_ppal.JPG)
 
+View from iPad:
+![ipad-ppal](src/images/tutorial/vista-ipad_ppal.JPG)
+
 2) First click on Sign up. If you don't have account yet, click on Sign up.
 ![2](src/images/tutorial/2_login.JPG)
 
@@ -44,6 +47,9 @@ npm start
 
 5) Click on some product to see details. Now you can add to favorites, make an offer to seller, score or send him a message.
 ![5](src/images/tutorial/5_product-data.JPG)
+
+View from iPad:
+![ipad-product](src/images/tutorial/vista-ipad_product.JPG)
 
 6) On main view, you can see products selected as favorites
 ![6](src/images/tutorial/6_fav-products.JPG)

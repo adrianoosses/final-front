@@ -5,6 +5,7 @@ import './Chat.css';
 import {CURRENT_URL} from '../../App';
 import { useHistory } from 'react-router-dom';
 import { notification, Input } from 'antd'
+//const WebSocket = require('ws');
 
 const Chat = () => {
     const [chats, setChat] = useState('');
@@ -12,17 +13,33 @@ const Chat = () => {
     const currentDate = new Date().getTime();
     const history = useHistory();
 
+    // Create WebSocket connection.
     const socket = new WebSocket('ws://localhost:3001');
-/*
-    socket.addEventListener('open', function(event){
-        socket.send("hi");
-    }); */
+    let ctr = 0;
+    let prevTs = 0;
+    // Connection opened
+   /* socket.addEventListener('open', function (event) {
+        socket.send('Hello Server!');
+    });*/
 
-    
-
-    const sendMessage2 = (message) => {
-        socket.send(message);
-    }
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        //console.log('Message from server ', event.data);
+        //console.log('All of event: ', event);
+        //console.log("event.data", typeof(event.data))
+        //let objChat = [];
+        if(event) objChat = JSON.parse(event.data);
+        //console.log("objRec: ", objChat);
+        ctr++;
+        //console.log("CTR", ctr);
+        //console.log("event.timeStamp", event.timeStamp);
+        //console.log("objChat.chatDate", objChat.chatDate);
+        //console.log("prevTs ", prevTs);
+        if(objChat.chatDate !== prevTs){
+            getChat(); // #Firefox: comment
+            prevTs = objChat.chatDate;
+        } 
+    });
 
     const getChat = async()=> {
         try {
@@ -32,7 +49,7 @@ const Chat = () => {
             let destEmail = dest;
             let chat = await axios.get(CURRENT_URL + `/chat?srcemail=${email}&dstemail=${destEmail}`,
             { headers: {authorization: token} });
-            //setChat(chat.data);
+            setChat(chat.data);
         } catch (error) {
             history.push('/');
             notification.error({ message: 'Unauthorized', description: 'Log in first' })
@@ -41,10 +58,12 @@ const Chat = () => {
     }
     
     const sendMessage = async(event) => {
+
         try {
             event.preventDefault();
             const form = event.target;
-            sendMessage2(form.message.value);
+            //sendMessage2(form.message.value);
+            socket.send(form.message.value);
             let token =  localStorage.getItem('tokenUsr')
             let email = localStorage.getItem('email');
             let srcObj = await axios.get(CURRENT_URL + `/user?email=${email}`);
@@ -62,17 +81,14 @@ const Chat = () => {
                 createdAt: moment(currentDate).format(format),
                 updatedAt: moment(currentDate).format(format)
             }
+            //socket.send(chatItem);
+            socket.send(JSON.stringify(chatItem));
             await axios.post(CURRENT_URL + `/chat`, chatItem,
             { headers: {authorization: token} });        
         } catch (error) {
             console.error(error)
         }
     }
-
-    socket.addEventListener('message', function(event){
-        console.log("messageeee", event.data);
-        //getChat();
-    });
 
     useEffect(() => {
         getChat();
@@ -85,6 +101,7 @@ const Chat = () => {
             {/*<div>{value}</div>*/}
             <div className = "generalContainerChat">
             <div className = "containerChat">
+            {console.log("CHATSSS:", chats)}
                 {chats.length ?
                     <>
                         <div className="chatsContainer">

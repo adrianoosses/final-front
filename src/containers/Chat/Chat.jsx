@@ -27,7 +27,7 @@ const Chat = () => {
         //console.log('Message from server ', event.data);
         //console.log('All of event: ', event);
         //console.log("event.data", typeof(event.data))
-        //let objChat = [];
+        let objChat = [];
         if(event) objChat = JSON.parse(event.data);
         //console.log("objRec: ", objChat);
         ctr++;
@@ -35,6 +35,7 @@ const Chat = () => {
         //console.log("event.timeStamp", event.timeStamp);
         //console.log("objChat.chatDate", objChat.chatDate);
         //console.log("prevTs ", prevTs);
+        
         if(objChat.chatDate !== prevTs){
             getChat(); // #Firefox: comment
             prevTs = objChat.chatDate;

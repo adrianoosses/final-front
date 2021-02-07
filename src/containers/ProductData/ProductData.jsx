@@ -16,11 +16,12 @@ class ProductData extends Component {
         super(props)
 
         this.state = { 
-            email: "",
+            email: '',
             product: [],
             //days: 0,
-            msg: "",
-            value: ''
+            msg: '',
+            value: '',
+            sellerData: '',
          }
     }
     getProductById(id){
@@ -29,7 +30,10 @@ class ProductData extends Component {
         { headers: {authorization: token } })
         .then((api) =>{
             this.setState({product: api.data[0] });
-            localStorage.setItem('dest', api.data[0].email);
+            console.log("api.data[0]", api.data[0]);
+            console.log("api.data[0].User:", api.data[0].User);
+            this.setState({sellerData: api.data[0].User})
+            localStorage.setItem('dest', api.data[0].User.email);
         })
         .catch( (err) => console.log(err) ) ;
     }
@@ -41,7 +45,7 @@ class ProductData extends Component {
     }
 
     openChat = () =>{
-        localStorage.setItem('dest', this.state.product.email); // #context
+        localStorage.setItem('dest', this.state.sellerData.email); // #context
         this.props.history.push('/chat');
     }
 
@@ -63,8 +67,7 @@ class ProductData extends Component {
 
     render(){
         return (
-            <>
-            
+            <>   
             <div className='generalContainerProductDataView'>
                 <div className='containerProductDataView'>
                 
@@ -79,15 +82,16 @@ class ProductData extends Component {
                         <br></br>
                         
                         <div className="dataSeller">
-                            <div style={{ fontSize: '20px', color: 'black' }}>Sell by {this.state.product.name}</div> 
-                            <UserScore buyerEmail={this.state.product.email}/>
+                            <div style={{ fontSize: '20px', color: 'black' }}>Sell by {this.state.sellerData.name}</div> 
+                            <UserScore buyerEmail={this.state.sellerData.email}/>
+                            {console.log("product sellerdata:", this.state.sellerData)}
                         </div>
                         <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => this.openChat()}>Chat</MessageOutlined>
                         <ProductFavorite productSel={this.state.product}/>
                         
                         
                         {/*console.log("proddd", this.state.product)*/}
-                        {(this.state.product.email === localStorage.getItem('email')) ?
+                        {(this.state.sellerData.email === localStorage.getItem('email')) ?
                         <>
                             <DeleteOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={this.deleteProduct}/>
                         </>:<>
@@ -95,10 +99,10 @@ class ProductData extends Component {
                         </>
                         }
                         
-                        
+                        {console.log("DATA PRODUCT", this.state.product)}
                         <h2>Status: {this.state.product.productStatus}</h2>
                         <p className="textStyle">{this.state.product.price} €</p>
-                        <Offer productSel={this.state.product}/>
+                        <Offer productSel={this.state.product} sellerSel={this.state.sellerData}/>
                     </div>
                 </div>
             </div>

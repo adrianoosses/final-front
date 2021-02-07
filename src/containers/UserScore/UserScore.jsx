@@ -20,6 +20,7 @@ const UserScore = () => {
         try {
             let destObj = await axios.get(CURRENT_URL + `/user?email=${dest}`, 
             { headers: {authorization: token} });
+            console.log("$$$$$$$$$$$$$$$$$4Dest: ", dest);
             //console.log("id of score:",destObj );
             const itemScore = {
                 userReceive: destObj.data[0].id, 

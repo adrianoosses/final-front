@@ -6,31 +6,33 @@ import {CURRENT_URL} from '../../App';
 import { useHistory } from 'react-router-dom';
 import { notification, Input } from 'antd'
 
-
 const Chat = () => {
     const [chats, setChat] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
     const history = useHistory();
-    //const {dest} = useContext(ProductContext); // #context
-    //const value = useContext(ProductData);
+
+    const socket = new WebSocket('ws://localhost:3001');
+/*
+    socket.addEventListener('open', function(event){
+        socket.send("hi");
+    }); */
+
+    
+
+    const sendMessage2 = (message) => {
+        socket.send(message);
+    }
+
     const getChat = async()=> {
         try {
             let token =  localStorage.getItem('tokenUsr')
-            //console.log("token", token);
-            //console.log("get profile");
             let dest = localStorage.getItem('dest');
-            //console.log("DEST: ", dest);
             let email = localStorage.getItem('email');
             let destEmail = dest;
-            //let destObj = await axios.get(`http://127.0.0.1:3001/user?email=${dest}`);
             let chat = await axios.get(CURRENT_URL + `/chat?srcemail=${email}&dstemail=${destEmail}`,
             { headers: {authorization: token} });
-            //console.log("------------CHAT", chat);
-            //let chat = await axios.get(`http://127.0.0.1:3001/chat?userid=${destObj.data[0].id}`, 
-            
-            //console.log("chat2:", chat);
-            setChat(chat.data);
+            //setChat(chat.data);
         } catch (error) {
             history.push('/');
             notification.error({ message: 'Unauthorized', description: 'Log in first' })
@@ -40,20 +42,17 @@ const Chat = () => {
     
     const sendMessage = async(event) => {
         try {
-            //console.log("sending msg");
             event.preventDefault();
             const form = event.target;
+            sendMessage2(form.message.value);
             let token =  localStorage.getItem('tokenUsr')
-            //console.log("token", token);
-            //console.log("get profile");
             let email = localStorage.getItem('email');
             let srcObj = await axios.get(CURRENT_URL + `/user?email=${email}`);
-            //console.log("srcObj", srcObj);
             const srcId = srcObj.data[0].id;
             let dest = localStorage.getItem('dest'); // #context
             let destEmail = dest
-            let destObj = await axios.get(CURRENT_URL + `/user?email=${destEmail}`);
-            //console.log("destObj", destObj);
+            let destObj = await axios.get(CURRENT_URL + `/user?email=${destEmail}`,
+            { headers: {authorization: token } });
             const destId = destObj.data[0].id;
             const chatItem = { 
                 source:srcId , 
@@ -63,27 +62,25 @@ const Chat = () => {
                 createdAt: moment(currentDate).format(format),
                 updatedAt: moment(currentDate).format(format)
             }
-            //console.log("chatItem", chatItem);
             await axios.post(CURRENT_URL + `/chat`, chatItem,
-            { headers: {authorization: token} });
-            
-                //document.title = `You clicked ${count} times`;
-            getChat();
-            
-            //this.setState({chats: await chat.data})
-            
+            { headers: {authorization: token} });        
         } catch (error) {
             console.error(error)
         }
     }
 
+    socket.addEventListener('message', function(event){
+        console.log("messageeee", event.data);
+        //getChat();
+    });
+
     useEffect(() => {
-        //document.title = `You clicked ${count} times`;
         getChat();
     }, []);
 
     return (
         <>
+        
             <h2>Chat with: {localStorage.getItem('dest')}</h2>
             {/*<div>{value}</div>*/}
             <div className = "generalContainerChat">
@@ -92,10 +89,8 @@ const Chat = () => {
                     <>
                         <div className="chatsContainer">
                         {chats.map((item) => <>  
-                                <span>{/*item.sourceemail*/} </span> 
-                                <span> {/*item.destinationemail*/}</span>
-                                <div className={((item.sourceemail===localStorage.getItem('email'))?'messageSource':'messageDestination')}> {item.message} </div>
-                                <div className={((item.sourceemail===localStorage.getItem('email'))?'messageSource':'messageDestination')}> {item.chatDate}</div> 
+                                <div className={((item.User.email===localStorage.getItem('email'))?'messageSource':'messageDestination')}> {item.message} </div>
+                                <div className={((item.User.email===localStorage.getItem('email'))?'messageSource':'messageDestination')}> {item.chatDate}</div> 
                                 <p/>
                             </>
                             )

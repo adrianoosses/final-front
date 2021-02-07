@@ -13,12 +13,9 @@ export default function ProductToSell() {
         try {
             event.preventDefault();
             const form = event.target;
-
             let email = localStorage.getItem('email');
-            // console.log("dest1: ", email)
             let token =  localStorage.getItem('tokenUsr')
             const itemProduct = {
-                sellerEmail: email, 
                 title: form.productTitle.value,
                 description: form.productDescription.value,
                 price: form.priceDescription.value,

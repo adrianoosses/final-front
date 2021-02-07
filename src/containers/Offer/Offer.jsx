@@ -13,29 +13,21 @@ const Offer = (props) => {
     const [offer, setOffer] = useState('');
     const [sellerEmail, setSellerEmail] = useState('');
     const [product, setProduct] = useState('');
-    // const [setSellerEmail] = useState('');
     const format = "YYYY-MM-DD HH:mm:ss";
     const currentDate = new Date().getTime();
-    //setProduct(props.productSel);
-    console.log("PROPS:", props);
 
     const addOffer = async(event)=> {
         try {
             let token =  localStorage.getItem('tokenUsr')
             event.preventDefault();
             const form = event.target;
-            let buyerEmail = localStorage.getItem('email');
-            //console.log("dest1: ", buyerEmail)
             let product = props.productSel;
-            //console.log("product", product);
             const itemOffer = {
-                userEmail: buyerEmail, 
                 productId: product.id,
                 offerValue: form.addoffer.value,
                 createdAt:moment(currentDate).format(format),
                 updatedAt:moment(currentDate).format(format)
             }
-            //console.log("itemOffer", itemOffer);
             await axios.post(CURRENT_URL + '/offer', itemOffer, 
             { headers: {authorization: token } });
             notification.success({ message: 'Sent!', description: 'Offer sent correctly'});
@@ -48,31 +40,23 @@ const Offer = (props) => {
     async function getOffer() {
         try {
             let token =  localStorage.getItem('tokenUsr')
-            //console.log("GETTING OFER!!");
-            //let email = localStorage.getItem('email');
-            //console.log('email', email);
-            //let product = props.productSel;
             if(props.productSel){
-                console.log("props.productSel", props.productSel);
-                console.log("product: ", product);
-                let sellerEmailRec = product.email;
+                let sellerEmailRec = props.sellerSel.email;
                 setSellerEmail(sellerEmailRec);
-                console.log("product.id :::",props)
-                let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${props.productSel.id}`, 
-                { headers: {authorization: token } });
-                //console.log("itemOffer", itemOffer);
-                //console.log("itemOffer2: ", itemOffer.data[0].offer);
-                setOffer(itemOffer.data);
+                if(props) {
+                    console.log("algo", props.productSel.id);
+                    let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${props.productSel.id}`, 
+                    { headers: {authorization: token } });
+                    console.log("offer received", itemOffer.data);
+                    setOffer(itemOffer.data);
+                }
             }
         } catch (error) {
-            //history.push('/');
-            //notification.error({ message: 'Unauthorized', description: 'Log in first' })
             console.error(error)
         }
     }
 
     const openChatBuyer2 = (destChat) =>{
-        //console.log("ABRI CHAT A: ", destChat);
         localStorage.setItem('dest', destChat);
         history.push('/chat');
     }
@@ -84,10 +68,10 @@ const Offer = (props) => {
 
     return (
         <>
-        {props.productSel.email === localStorage.getItem('email') ?
+        {props.sellerSel.email === localStorage.getItem('email') ?
         
         <>
-            {console.log("offers: ", !!offer)}
+        {console.log("OFFERS: ", offer)}
             {offer ?
                 <>
                     <p>Offers received: </p>
@@ -97,8 +81,9 @@ const Offer = (props) => {
                     {offer.map( item => <>
                     <span>Product title: {item.title}-</span>
                     <span>Value: {item.offerValue}-</span>
-                    <span>Email: {item.email}</span>
-                    <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => openChatBuyer2(item.email)}>Chat</MessageOutlined>
+                    {console.log("offerrrrrrrrrr", offer)}
+                    <span>Email: {item.User.email}</span>
+                    <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => openChatBuyer2(item.User.email)}>Chat</MessageOutlined>
                     <p></p>
                     
                     </>

@@ -20,7 +20,7 @@ const Login = (props) => {
             localStorage.setItem('tokenUsr', token);
             localStorage.setItem('email', email);
             //console.log("Email: ", email);
-            console.log("token rec: ", token);
+            //console.log("token rec: ", token);
             props.setUser(email);
             notification.success({ message: 'Logged!', description: 'User logged'});
             history.push('/');

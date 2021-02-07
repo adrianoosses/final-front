@@ -14,7 +14,7 @@ const Chat = () => {
     const history = useHistory();
 
     // Create WebSocket connection.
-    const socket = new WebSocket('ws://localhost:3001');
+    const socket = new WebSocket('ws://'+ CURRENT_URL);
     let ctr = 0;
     let prevTs = 0;
     // Connection opened

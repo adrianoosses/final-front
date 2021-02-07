@@ -14,7 +14,8 @@ const Chat = () => {
     const history = useHistory();
 
     // Create WebSocket connection.
-    const socket = new WebSocket('ws://'+ CURRENT_URL);
+    //const socket = new WebSocket('ws://'+ CURRENT_URL);
+    const socket = new WebSocket('ws://localhost:3001');
     let ctr = 0;
     let prevTs = 0;
     // Connection opened
@@ -37,7 +38,7 @@ const Chat = () => {
         //console.log("prevTs ", prevTs);
         
         if(objChat.chatDate !== prevTs){
-            getChat(); // #Firefox: comment
+            //getChat(); // #Firefox: comment
             prevTs = objChat.chatDate;
         } 
     });

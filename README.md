@@ -10,7 +10,7 @@ Backend part: https://github.com/adrianoosses/final-back
 <a name="set-up"></a>
 ## SET UP
 <a name="db"></a>
-Option 1: Heroku
+Option 1: Heroku: https://mejorprecio-front.herokuapp.com/
 Option 2: Local
 1. Clone the repository:
 ```

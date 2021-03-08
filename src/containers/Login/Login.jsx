@@ -10,11 +10,13 @@ const Login = (props) => {
     const history = useHistory();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
+    const [testCode, setTestCode] = useState('');
     const handleSubmit = async (event) => {
         //console.log("Logging");
         try {
             event.preventDefault();
-            let msgReceived = await axios.post(CURRENT_URL + '/user/login', {email, password});
+            let msgReceived = await axios.post(CURRENT_URL + '/user/login', {email, password},
+            { headers: {testcode: testCode } });
             let token = await msgReceived.data.token;
             //console.log("msgReceived: ", msgReceived);
             localStorage.setItem('tokenUsr', token);
@@ -37,6 +39,7 @@ const Login = (props) => {
                     <h2>Login:</h2>
                     <div className="textStyle" ><div>Email:</div> <Input className="box" type="text" onChange={event=>setEmail(event.target.value)} name="email" placeholder="user@domain.com" /></div>
                     <div className="textStyle" ><div>Password:</div> <Input className="box" type="password" onChange={event=>setPassword(event.target.value)} name="password" placeholder="8 or more characters" /></div>
+                    <div className="textStyle" ><div>Test code:</div> <Input className="box" type="text" onChange={event=>setTestCode(event.target.value)} name="text" placeholder="Test code" /></div>
                     <button className="loginButton" type="submit">Login</button>
                     <p/>
                     

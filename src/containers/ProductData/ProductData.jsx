@@ -90,8 +90,8 @@ class ProductData extends Component {
                         <ProductFavorite productSel={this.state.product}/>
                         
                         
-                        {/*console.log("proddd", this.state.product)*/}
-                        {(this.state.sellerData.email === localStorage.getItem('email')) ?
+                        {console.log('emaill-----', localStorage.getItem('email'))}
+                        {((this.state.sellerData.email === localStorage.getItem('email')) || localStorage.getItem('email') === 'admin@example.com') ?
                         <>
                             <DeleteOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={this.deleteProduct}/>
                         </>:<>

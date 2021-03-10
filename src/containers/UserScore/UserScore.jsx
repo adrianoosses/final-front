@@ -20,8 +20,6 @@ const UserScore = () => {
         try {
             let destObj = await axios.get(CURRENT_URL + `/user?email=${dest}`, 
             { headers: {authorization: token} });
-            console.log("$$$$$$$$$$$$$$$$$4Dest: ", dest);
-            //console.log("id of score:",destObj );
             const itemScore = {
                 userReceive: destObj.data[0].id, 
                 uScore: scoreValue,
@@ -36,8 +34,7 @@ const UserScore = () => {
             getUserScore();
             //setScore(score.data);
         } catch (error) {
-            history.push('/');
-            notification.error({ message: 'Unauthorized', description: 'Log in first' })
+			if (error.response.data.error==="Cannot set score yourself") notification.error({ message: 'Set score failed', description: 'Cannot set score yourself' })
             console.error(error)
         }
     }
@@ -60,16 +57,12 @@ const UserScore = () => {
             console.error(error)
         }
     }
-
-    
-
     useEffect(() => {
         getUserScore();
     }, []);
 
     return (
         <>
-            {/*console.log("score", score)*/}
             <div className="scoreMarker">
                 <StarOutlined onClick={() => setUserScore(1)} style={{ fontSize: '30px', color: colorStarValue[0] }}/>
                 <StarOutlined onClick={() => setUserScore(2)} style={{ fontSize: '30px', color: colorStarValue[1] }}/>

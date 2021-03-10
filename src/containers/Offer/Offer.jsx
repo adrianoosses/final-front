@@ -44,10 +44,8 @@ const Offer = (props) => {
                 let sellerEmailRec = props.sellerSel.email;
                 setSellerEmail(sellerEmailRec);
                 if(props) {
-                    console.log("algo", props.productSel.id);
                     let itemOffer = await axios.get(CURRENT_URL + `/offer?productid=${props.productSel.id}`, 
                     { headers: {authorization: token } });
-                    console.log("offer received", itemOffer.data);
                     setOffer(itemOffer.data);
                 }
             }
@@ -71,17 +69,14 @@ const Offer = (props) => {
         {props.sellerSel.email === localStorage.getItem('email') ?
         
         <>
-        {console.log("OFFERS: ", offer)}
             {offer ?
                 <>
                     <p>Offers received: </p>
                     <button className='offerButton' onClick={getOffer}>Show</button>
                     <p/>
-                    {console.log("OFFERS: ", offer)}
                     {offer.map( item => <>
                     <span>Product title: {item.title}-</span>
                     <span>Value: {item.offerValue}-</span>
-                    {console.log("offerrrrrrrrrr", offer)}
                     <span>Email: {item.User.email}</span>
                     <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => openChatBuyer2(item.User.email)}>Chat</MessageOutlined>
                     <p></p>

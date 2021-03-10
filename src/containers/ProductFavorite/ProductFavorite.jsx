@@ -51,10 +51,7 @@ const ProductFavorite = (props) => {
             //console.log("tokennnnnnnnnn");
             let product = props.productSel;
             await axios.delete(CURRENT_URL + `/productfavorite?productid=${product.id}`,
-            { headers: {authorization: token } })
-            .then(() =>{
-                console.log("product deleted");
-            })
+            { headers: {authorization: token } });
             notification.success({ message: 'Deleted!', description: 'Deleted from favorites correctly'});
         } catch (error) {
             history.push('/');

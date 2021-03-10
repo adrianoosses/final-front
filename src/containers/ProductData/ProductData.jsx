@@ -30,8 +30,6 @@ class ProductData extends Component {
         { headers: {authorization: token } })
         .then((api) =>{
             this.setState({product: api.data[0] });
-            console.log("api.data[0]", api.data[0]);
-            console.log("api.data[0].User:", api.data[0].User);
             this.setState({sellerData: api.data[0].User})
             localStorage.setItem('dest', api.data[0].User.email);
         })
@@ -53,9 +51,6 @@ class ProductData extends Component {
         let token = localStorage.getItem('tokenUsr');
         axios.delete(CURRENT_URL + `/product?id=${this.state.product.id}`,
         { headers: {authorization: token } })
-        .then(() =>{
-            console.log("product deleted");
-        })
         this.props.history.push('/');
     }
     
@@ -84,13 +79,10 @@ class ProductData extends Component {
                         <div className="dataSeller">
                             <div style={{ fontSize: '20px', color: 'black' }}>Sell by {this.state.sellerData.name}</div> 
                             <UserScore buyerEmail={this.state.sellerData.email}/>
-                            {console.log("product sellerdata:", this.state.sellerData)}
                         </div>
                         <MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => this.openChat()}>Chat</MessageOutlined>
                         <ProductFavorite productSel={this.state.product}/>
                         
-                        
-                        {console.log('emaill-----', localStorage.getItem('email'))}
                         {((this.state.sellerData.email === localStorage.getItem('email')) || localStorage.getItem('email') === 'admin@example.com') ?
                         <>
                             <DeleteOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={this.deleteProduct}/>
@@ -98,8 +90,6 @@ class ProductData extends Component {
                         
                         </>
                         }
-                        
-                        {console.log("DATA PRODUCT", this.state.product)}
                         <h2>Status: {this.state.product.productStatus}</h2>
                         <p className="textStyle">{this.state.product.price} €</p>
                         <Offer productSel={this.state.product} sellerSel={this.state.sellerData}/>

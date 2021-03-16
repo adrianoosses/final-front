@@ -65,7 +65,7 @@ const Offer = ({ productSel, sellerSel }) => {
     return (
         <>
 			{sellerSel.email === localStorage.getItem('email')
-				? 
+				?
 				(
 				<>
 				{offer
@@ -98,8 +98,10 @@ const Offer = ({ productSel, sellerSel }) => {
 				}
 			</>) : (<>
 				<form className="send" onSubmit={addOffer}>
-					<div className="textStyle"> <Input type="number" name="addoffer"/>
-					<button className="offerButton" type="submit">Make an offer</button></div>
+					<div className="textStyle">
+						<Input type="number" name="addoffer"/>
+						<button className="offerButton" type="submit">Make an offer</button>
+					</div>
 				</form>
 			</>)
 			}

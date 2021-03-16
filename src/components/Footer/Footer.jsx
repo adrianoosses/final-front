@@ -8,10 +8,14 @@ export default function Footer() {
             <div className="contentFooter">
                 <div style={{ fontSize: '18px', color: 'rgb(86, 79, 153)' }}>All rights reserved</div>
                 <div style={{ fontSize: '18px', color: 'rgb(86, 79, 153)' }}>
-					<LinkedinOutlined/>https://www.linkedin.com/in/adriano-osses/
+					<LinkedinOutlined />
+					https://www.linkedin.com/in/adriano-osses/
 				</div>
-                <div style={{ fontSize: '18px', color: 'rgb(86, 79, 153)' }}><GithubOutlined />https://github.com/adrianoosses</div>
+                <div style={{ fontSize: '18px', color: 'rgb(86, 79, 153)' }}>
+					<GithubOutlined />
+					https://github.com/adrianoosses
+				</div>
             </div>
         </div>
-    )
+    );
 }

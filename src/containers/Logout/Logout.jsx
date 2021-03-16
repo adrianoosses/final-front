@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect } from 'react';
 import { notification } from 'antd';
 import { useHistory } from 'react-router-dom';
 

@@ -28,7 +28,7 @@ export default class Profile extends Component {
         }
     }
 
-    getEmail = () =>{
+    getEmail = () => {
         return localStorage.getItem('email');
     }
 

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // import moment from 'moment'
-import { CURRENT_URL } from '../../constants/constants';
+import CURRENT_URL from '../../constants/constants';
 
 const ControlPanel = () => {
     const [usersList, setUsersList] = useState('');
-    const getUsersList = async() => {
+    const getUsersList = async () => {
         try {
             const token = localStorage.getItem('tokenUsr');
-            let usersListData = await axios.get(`${CURRENT_URL}/user/list`, 
+            const usersListData = await axios.get(`${CURRENT_URL}/user/list`,
             { headers: { authorization: token } });
             setUsersList(usersListData.data);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
     useEffect(() => {

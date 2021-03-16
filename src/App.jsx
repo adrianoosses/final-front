@@ -32,8 +32,12 @@ function App() {
 					<Switch>
 						<Route path="/" exact component={ProductList} />
 						<Route path="/signup" exact component={Signup} />
-						<Route path="/login" exact component={Login} />
-						<Route path="/logout" exact component={Logout} />
+						<Route path="/login">
+							<Login user={user} setUser={setUser} />
+						</Route>
+						<Route path="/logout" exact>
+							<Logout user={user} setUser={setUser} />
+						</Route>
 						<Route path="/productdata/:id" exact component={ProductData} />
 						<Route path="/profile" exact component={Profile} />
 						<Route path="/chat" exact component={Chat} />

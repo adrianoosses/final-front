@@ -3,8 +3,8 @@ import axios from 'axios';
 import moment from 'moment';
 import './Chat.css';
 import { useHistory } from 'react-router-dom';
-import { notification, Input } from 'antd'
-import { CURRENT_URL } from '../../constants/constants';
+import { notification, Input } from 'antd';
+import CURRENT_URL from '../../constants/constants';
 // const WebSocket = require('ws');
 
 const Chat = () => {
@@ -16,7 +16,7 @@ const Chat = () => {
     // Create WebSocket connection.
     // const socket = new WebSocket('ws://'+ CURRENT_URL);
     const socket = new WebSocket('ws://localhost:3001');
-    let ctr = 0;
+    // let ctr = 0;
     let prevTs = 0;
     // Connection opened
    /* socket.addEventListener('open', function (event) {
@@ -24,7 +24,7 @@ const Chat = () => {
     }); */
 
     // Listen for messages
-    socket.addEventListener('message', function (event) {
+    socket.addEventListener('message', (event) => {
         // console.log('Message from server ', event.data);
         // console.log('All of event: ', event);
         // console.log("event.data", typeof(event.data))
@@ -36,14 +36,13 @@ const Chat = () => {
         // console.log("event.timeStamp", event.timeStamp);
         // console.log("objChat.chatDate", objChat.chatDate);
         // console.log("prevTs ", prevTs);
-        
         if (objChat.chatDate !== prevTs) {
-            //getChat(); // #Firefox: comment
+            // getChat(); // #Firefox: comment
             prevTs = objChat.chatDate;
         }
     });
 
-    const getChat = async()=> {
+    const getChat = async() => {
         try {
             const token = localStorage.getItem('tokenUsr');
             const dest = localStorage.getItem('dest');
@@ -59,7 +58,7 @@ const Chat = () => {
         }
     };
     
-    const sendMessage = async(event) => {
+    const sendMessage = async (event) => {
         try {
             event.preventDefault();
             const form = event.target;
@@ -87,7 +86,7 @@ const Chat = () => {
             await axios.post(`${CURRENT_URL}/chat`, chatItem,
             { headers: { authorization: token } });        
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 

@@ -8,7 +8,7 @@ import { notification, Input } from 'antd'
 import './Signup.css'
 
 
-import {CURRENT_URL} from '../../App';
+import { CURRENT_URL } from '../../constants/constants';
 
 const Signup = () => {
     const history = useHistory();

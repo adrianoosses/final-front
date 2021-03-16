@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import moment from 'moment'
-import {CURRENT_URL} from '../../App';
+import { CURRENT_URL } from '../../constants/constants';
 import { notification } from 'antd'
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';

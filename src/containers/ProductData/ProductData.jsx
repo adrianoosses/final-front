@@ -11,7 +11,7 @@ import {CURRENT_URL} from '../../App';
 import {ProductContext} from '../ProductContext/ProductContext';
 import './ProductData.css'
 class ProductData extends Component {
-    static contextType = ProductContext;
+    // static contextType = ProductContext;
     constructor(props){
         super(props)
 

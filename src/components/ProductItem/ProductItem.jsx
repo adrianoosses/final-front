@@ -5,7 +5,7 @@ class ProductItem extends Component {
     /*constructor(props){
         super(props);
     }*/
-    static contextType = ProductContext;
+    // static contextType = ProductContext;
     clickSelectProduct(product){
         this.props.history.push('/productdata/' + product.id);   
     }

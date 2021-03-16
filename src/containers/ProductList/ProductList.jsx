@@ -5,7 +5,7 @@ import { Input } from 'antd'
 import './ProductList.css'
 import {CURRENT_URL} from '../../App';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-class ProductList extends Component {
+export class ProductList extends Component {
     constructor(props){
         super(props)
 
@@ -134,5 +134,3 @@ class ProductList extends Component {
     }
 
 }
-
-export default ProductList;

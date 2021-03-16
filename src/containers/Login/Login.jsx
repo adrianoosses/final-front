@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
-import axios from 'axios'
+import React, { useState } from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { notification, Input } from 'antd'
+import { notification, Input } from 'antd';
 
 import './Login.css'
-import {CURRENT_URL} from '../../App';
+import { CURRENT_URL } from '../../constants/constants';
 
 const Login = (props) => {
     const history = useHistory();
@@ -12,17 +12,17 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const [testCode, setTestCode] = useState('');
     const handleSubmit = async (event) => {
-        //console.log("Logging");
+        // console.log("Logging");
         try {
             event.preventDefault();
-            let msgReceived = await axios.post(CURRENT_URL + '/user/login', {email, password},
-            { headers: {testcode: testCode } });
+            const msgReceived = await axios.post(`${CURRENT_URL}/user/login`, { email, password },
+            { headers: { testcode: testCode } });
             let token = await msgReceived.data.token;
-            //console.log("msgReceived: ", msgReceived);
+            // console.log("msgReceived: ", msgReceived);
             localStorage.setItem('tokenUsr', token);
             localStorage.setItem('email', email);
-            //console.log("Email: ", email);
-            //console.log("token rec: ", token);
+            // console.log("Email: ", email);
+            // console.log("token rec: ", token);
             props.setUser(email);
             notification.success({ message: 'Logged!', description: 'User logged'});
             history.push('/');
@@ -37,19 +37,26 @@ const Login = (props) => {
             <div className="containerForm">
                 <form onSubmit={handleSubmit}>
                     <h2>Login:</h2>
-                    <div className="textStyle" ><div>Email:</div> <Input className="box" type="text" onChange={event=>setEmail(event.target.value)} name="email" placeholder="user@domain.com" /></div>
-                    <div className="textStyle" ><div>Password:</div> <Input className="box" type="password" onChange={event=>setPassword(event.target.value)} name="password" placeholder="8 or more characters" /></div>
-                    <div className="textStyle" ><div>Test code:</div> <Input className="box" type="text" onChange={event=>setTestCode(event.target.value)} name="text" placeholder="Test code" /></div>
+                    <div className="textStyle" >
+						<div>Email:</div>
+						<Input className="box" type="text" onChange={(event) => setEmail(event.target.value)} name="email" placeholder="user@domain.com" />
+					</div>
+                    <div className="textStyle" >
+						<div>Password:</div>
+						<Input className="box" type="password" onChange={(event) => setPassword(event.target.value)} name="password" placeholder="8 or more characters" />
+					</div>
+                    <div className="textStyle" >
+						<div>Test code:</div>
+						<Input className="box" type="text" onChange={(event) => setTestCode(event.target.value)} name="text" placeholder="Test code" />
+					</div>
                     <button className="loginButton" type="submit">Login</button>
                     <p/>
-                    
                 </form>
                 <div className="textStyle" >Don't you have and account yet? <a href='/signup'>Signup now!</a></div>
                 </div>
             </div>
-            
         </div>
     )
 }
 
-export default Login
+export default Login;

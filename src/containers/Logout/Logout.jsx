@@ -1,17 +1,18 @@
-import React, { useEffect }  from 'react'
-import { notification } from 'antd'
+import React, { useEffect }  from 'react';
+import { notification } from 'antd';
 import { useHistory } from 'react-router-dom';
+
 const Logout = (props) => {
     const history = useHistory();
         localStorage.clear();
-        props.setUser(null)  
+        props.setUser(null);
         history.push('/');
         const printMsg = () =>{
-            try{
+            try {
                 notification.success({ message: 'Logged out!', description: 'Logged out!'});
-            }catch(error) {
-                console.error(error)
-                notification.error({ message: 'Logout failed', description: 'there was a problem loging out' })
+            } catch (error) {
+                console.error(error);
+                notification.error({ message: 'Logout failed', description: 'there was a problem loging out' });
             }
     };
     useEffect(() => {
@@ -19,7 +20,6 @@ const Logout = (props) => {
     }, [])    
 
     return (
-        
         <div className="contentStyle">
             <p>Logging out...</p>
         </div>

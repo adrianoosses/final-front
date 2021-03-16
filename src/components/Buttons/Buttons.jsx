@@ -1,11 +1,11 @@
-import React from 'react'
-import {NavLink} from 'react-router-dom'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './Buttons.css';
-import Header from '../Header/Header';
 import { LoginOutlined, PlusOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import Header from '../Header/Header';
 
 const Buttons = (props) => {
-    let styleButtons = { fontSize: '65px', color: 'white', marginTop:'10px', marginRight:'10px' }
+    const styleButtons = { fontSize: '65px', color: 'white', marginTop: '10px', marginRight: '10px' }
     return (
         <>
             <div className="buttons">

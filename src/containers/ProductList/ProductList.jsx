@@ -1,136 +1,151 @@
-import React, { Component } from 'react'
-import axios from 'axios'
-import ProductItem from '../../components/ProductItem/ProductItem'
-import { Input } from 'antd'
-import './ProductList.css'
-import {CURRENT_URL} from '../../App';
+import React, { Component } from 'react';
+import axios from 'axios';
+import { Input } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-export class ProductList extends Component {
-    constructor(props){
-        super(props)
+import ProductItem from '../../components/ProductItem/ProductItem';
+import './ProductList.css';
+import CURRENT_URL from '../../constants/constants';
 
-        this.state = { 
+class ProductList extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             products: [],
             page: 1,
             text: '',
-            search: []
-         }
+            search: [],
+         };
     }
 
-    getProducts(page){
-        axios.get(CURRENT_URL + `/product?page=${page}`)
-        .then((api) =>{
-            this.setState({products: api.data });
+	componentDidMount() {
+		const { page } = this.state;
+        this.getProducts(page);
+    }
+
+	handleMyProducts() {
+		const { page } = this.state;
+        this.getMyProducts(page);
+    }
+
+	handleMyProductsFavorites() {
+        const { page } = this.state;
+        this.getProducts(page);
+    }
+
+    getProducts(page) {
+        axios.get(`${CURRENT_URL}/product?page=${page}`)
+        .then((api) => {
+            this.setState({ products: api.data });
         })
-        .catch( (err) => console.log(err) ) ;
+        .catch((err) => console.log(err));
     }
 
     getMyProducts = () => {
-        //const page = (this.state.page);
+        // const page = (this.state.page);
         const page = 1;
         const email = localStorage.getItem('email');
-        axios.get(CURRENT_URL + `/product?page=${page}&email=${email}`)
-        .then((api) =>{
+        axios.get(`${CURRENT_URL}/product?page=${page}&email=${email}`)
+        .then((api) => {
             this.setState = this.setState.bind(this);
-            this.setState({products: api.data });
+            this.setState({ products: api.data });
         })
-        .catch( (err) => console.log(err) ) ;
+        .catch((err) => console.log(err));
     }
 
     getMyProductsFavorites = () => {
-        //const page = (this.state.page);
-        let token =  localStorage.getItem('tokenUsr')
+        // const page = (this.state.page);
+        const token = localStorage.getItem('tokenUsr');
         const page = 1;
         const email = localStorage.getItem('email');
-        axios.get(CURRENT_URL + `/productfavorite?page=${page}&email=${email}`, 
-        { headers: {authorization: token } })
-        .then((api) =>{
+        axios.get(`${CURRENT_URL}/productfavorite?page=${page}&email=${email}`,
+        { headers: { authorization: token } })
+        .then((api) => {
             this.setState = this.setState.bind(this);
-            this.setState({products: api.data });
-            //console.log("products to favorite: ", api.data)
+            this.setState({ products: api.data });
+            // console.log("products to favorite: ", api.data)
         })
-        .catch( (err) => {
-            this.setState({products: []});
-            console.log(err)
-        }  ) ;
+        .catch((err) => {
+            this.setState({ products: [] });
+            console.log(err);
+        });
     }
 
-    componentDidMount(){
-        this.getProducts(this.state.page);
+    handleAllProducts =() => {
+        const { page } = this.state;
+        this.getProducts(page);
     }
-
-    handleAllProducts =() =>{
-        this.getProducts(this.state.page);
-    }
-
-    handleMyProducts(){
-        this.getMyProducts(this.state.page);
-    }
-
-    handleMyProductsFavorites(){
-        this.getMyProductsFavorites(this.state.page);
-    }
-   
 
     onNextPage = () => {
-        this.setState( prevState => ({ page: prevState.page + 1}), () => {
-            this.getProducts(this.state.page);
-            //console.log(this.state.page)
+		const { page } = this.state;
+        this.setState((prevState) => ({ page: prevState.page + 1 }), () => {
+            this.getProducts(page);
+            // console.log(this.state.page)
         });
     }
 
     onBeforePage = () => {
-        if(this.state.page > 1){
-            this.setState( prevState => ({ page: prevState.page - 1}), () => {
-                this.getProducts(this.state.page);
-                //console.log(this.state.page)
+		const { page } = this.state;
+        if (page > 1) {
+            this.setState((prevState) => ({ page: prevState.page - 1 }), () => {
+                this.getProducts(page);
+                // console.log(this.state.page)
             });
-        }else{
-            console.log(this.state.page)
+        } else {
+            console.log(page);
         }
     }
 
     onHandleChange = (event) => {
+		const { text, products } = this.state;
         this.setState({ text: event.target.value }, () => {
-            //console.log("event.target.value", event.target.value)
-            const data = this.state.products
-                .filter( item => item.title.toLowerCase().includes(this.state.text.toLowerCase()) )
-            this.setState({ search: data});   
-        });      
+            const data = products
+                .filter((item) => item.title.toLowerCase().includes(text.toLowerCase()));
+            this.setState({ search: data });
+        });
     }
 
-    render(){
-        const { search, text, products } = this.state;
+    render() {
+        const {
+			search, text, products, page,
+		} = this.state;
+		const history = this.props;
         return (
             <>
-            {/*console.log("products::", products)*/}
+            {/* console.log("products::", products) */}
             <div className="buttonGeneral">
                 <div className="searchAndButtonsNav">
                     <div className="searchNav">
-                        <LeftOutlined onClick={this.onBeforePage} style={{ fontSize: '50px', color: 'gray' }}/> 
-                        <div className="defaultText">{this.state.page}</div>
-                        <RightOutlined onClick={this.onNextPage} style={{ fontSize: '50px', color: 'gray' }}/>
-                        <Input className="defaultText" type="text" onChange={ event => this.onHandleChange(event) } />
+                        <LeftOutlined onClick={this.onBeforePage} style={{ fontSize: '50px', color: 'gray' }} />
+                        <div className="defaultText">{page}</div>
+                        <RightOutlined onClick={this.onNextPage} style={{ fontSize: '50px', color: 'gray' }} />
+                        <Input className="defaultText" type="text" onChange={(event) => this.onHandleChange(event)} />
                     </div>
                     <div className="searchNav">
-                        <button className="productsButton" onClick={this.getMyProducts}>My Products</button>
-                        <button className="productsButton" onClick={this.handleAllProducts}>All Products</button>
-                        <button className="productsButton" onClick={this.getMyProductsFavorites}>Favorites</button>
+                        <button className="productsButton" type="button" onClick={this.getMyProducts}>My Products</button>
+                        <button className="productsButton" type="button" onClick={this.handleAllProducts}>All Products</button>
+                        <button className="productsButton" type="button" onClick={this.getMyProductsFavorites}>Favorites</button>
                     </div>
-                </div> 
-                
-                <div className = "divGeneral">
-                
-                    {search.length === 0 && text === ''
-                        ? products.map( item => <div className="containerItem" key={item.id}><ProductItem item={item} history={this.props.history}/></div>)
-                        : search.map( item => <div><ProductItem item={item} history={this.props.history}/></div>)
-                    }
                 </div>
-                
-            </div>   
-        </>
-            //</LoaderPage>
-        )
-    }
 
+                <div className="divGeneral">
+                    {search.length === 0 && text === ''
+                        ? products.map((item) => (
+							<div className="containerItem" key={item.id}>
+								<ProductItem item={item} history={history} />
+							</div>
+							))
+                        : search.map((item) => (
+							<div>
+								<ProductItem item={item} history={history} />
+							</div>
+							))}
+                </div>
+            </div>
+            </>
+            // </LoaderPage>
+        );
+    }
 }
+
+export default ProductList;

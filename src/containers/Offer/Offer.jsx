@@ -65,53 +65,60 @@ const Offer = ({ productSel, sellerSel }) => {
     return (
         <>
 			{sellerSel.email === localStorage.getItem('email')
-				?
-				(
+			?	(
 				<>
 				{offer
-					? (
+				?	(
 					<>
 						<p>Offers received: </p>
-						<button className="offerButton" onClick={getOffer}>Show</button>
-						<p/>
-						{offer.map( item => <>
-						<span>
-							Product title:
-							{item.title}
-							-
-						</span>
-						<span>
-							Value:
-							{item.offerValue}
-							-
-						</span>
-						<span>
-							Email:
-							{item.User.email}
-						</span>
-						<MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => openChatBuyer2(item.User.email)}>Chat</MessageOutlined>
+						<button className="offerButton" type="button" onClick={getOffer}>Show</button>
 						<p />
-						</>)}
-					</>) : (<>
+						{offer.map((item) => (
+						<>
+							<span>
+								Product title:
+								{item.title}
+								-
+							</span>
+							<span>
+								Value:
+								{item.offerValue}
+								-
+							</span>
+							<span>
+								Email:
+								{item.User.email}
+							</span>
+							<MessageOutlined style={{ fontSize: '50px', color: 'gray' }} onClick={() => openChatBuyer2(item.User.email)}>Chat</MessageOutlined>
+							<p />
+						</>
+						))}
+					</>
+					)
+				: 	(
+					<>
 						<p>No offer yet</p>
-					</>)
-				}
-			</>) : (<>
-				<form className="send" onSubmit={addOffer}>
-					<div className="textStyle">
-						<Input type="number" name="addoffer"/>
-						<button className="offerButton" type="submit">Make an offer</button>
-					</div>
-				</form>
-			</>)
-			}
+					</>
+					)}
+				</>
+				)
+			: 	(
+				<>
+					<form className="send" onSubmit={addOffer}>
+						<div className="textStyle">
+							<Input type="number" name="addoffer" />
+							<button className="offerButton" type="submit">Make an offer</button>
+						</div>
+					</form>
+				</>
+				)}
         </>
     );
 };
 
 Offer.propTypes = {
-	productSel: PropTypes.objectOf(PropTypes.object()),
-	sellerSel: PropTypes.objectOf(PropTypes.object()),
+	productSel: PropTypes.arrayOf(PropTypes.string).isRequired,
+	sellerSel: PropTypes.string.isRequired,
 };
 
 export default Offer;

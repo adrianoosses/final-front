@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ProductItem.css';
+import PropTypes from 'prop-types';
 // import {ProductContext} from '../../containers/ProductContext/ProductContext';
 class ProductItem extends Component {
     /* constructor(props){
@@ -7,23 +8,45 @@ class ProductItem extends Component {
     } */
     // static contextType = ProductContext;
     clickSelectProduct(product) {
-        this.props.history.push('/productdata/' + product.id);
+		const { history } = this.props;
+        history.history.push(`/productdata/${product.id}`);
     }
-    render(){
+
+    render() {
+		const { item } = this.props;
         return (
-            <div className="itemProduct" onClick={() => this.clickSelectProduct(this.props.item)} key={this.props.item.id}>
-                <img className = 'imageProduct' 
-                src={this.props.item.mainImage} alt=""></img>
+			<div
+			role="button"
+			tabIndex={0}
+			className="itemProduct"
+			onClick={() => this.clickSelectProduct(item)}
+			onKeyDown={() => this.clickSelectProduct(item)}
+			key={item.id}
+			>
+                <img
+					className="imageProduct"
+					src={item.mainImage}
+					alt=""
+                />
                 <div className="priceProduct">
-					{this.props.item.price}
+					{item.price}
 					€
-				</div>
+                </div>
                 <div className="titleProduct">
-					{this.props.item.title}
-				</div>
-            </div>
+					{item.title}
+                </div>
+			</div>
         );
     }
 }
+
+ProductItem.propTypes = {
+	history: PropTypes.shape({
+		history: PropTypes.shape({
+			push: PropTypes.func.isRequired,
+		}).isRequired,
+	}).isRequired,
+	item: PropTypes.oneOfType([PropTypes.object]).isRequired,
+};
 
 export default ProductItem;

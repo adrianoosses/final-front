@@ -2,7 +2,7 @@ import './App.css';
 import 'antd/dist/antd.css';
 import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { ProductList } from './containers/ProductList/ProductList';
+import ProductList from './containers/ProductList/ProductList';
 import ProductData from './containers/ProductData/ProductData';
 import Profile from './containers/Profile/Profile';
 import Buttons from './components/Buttons/Buttons';

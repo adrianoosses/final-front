@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { notification, Input } from 'antd';
-
+import PropTypes from 'prop-types';
 import './Login.css';
 import CURRENT_URL from '../../constants/constants';
 
@@ -37,29 +37,33 @@ const Login = (props) => {
             <div className="containerForm">
                 <form onSubmit={handleSubmit}>
                     <h2>Login:</h2>
-                    <div className="textStyle" >
+                    <div className="textStyle">
 						<div>Email:</div>
 						<Input className="box" type="text" onChange={(event) => setEmail(event.target.value)} name="email" placeholder="user@domain.com" />
-					</div>
-                    <div className="textStyle" >
+                    </div>
+                    <div className="textStyle">
 						<div>Password:</div>
 						<Input className="box" type="password" onChange={(event) => setPassword(event.target.value)} name="password" placeholder="8 or more characters" />
-					</div>
-                    <div className="textStyle" >
+                    </div>
+                    <div className="textStyle">
 						<div>Test code:</div>
 						<Input className="box" type="text" onChange={(event) => setTestCode(event.target.value)} name="text" placeholder="Test code" />
-					</div>
+                    </div>
                     <button className="loginButton" type="submit">Login</button>
                     <p />
                 </form>
-                <div className="textStyle" >
-					Don't you have and account yet? 
-					<a href='/signup'>Signup now!</a>
-				</div>
+                <div className="textStyle">
+					Don&apos;t you have an account yet?
+					<a href="/signup">Signup now!</a>
                 </div>
+            </div>
             </div>
         </div>
     );
-}
+};
+
+Login.propTypes = {
+	setUser: PropTypes.func.isRequired,
+};
 
 export default Login;

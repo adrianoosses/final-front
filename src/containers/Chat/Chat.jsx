@@ -42,7 +42,7 @@ const Chat = () => {
         }
     });
 
-    const getChat = async() => {
+    const getChat = async () => {
         try {
             const token = localStorage.getItem('tokenUsr');
             const dest = localStorage.getItem('dest');
@@ -57,38 +57,37 @@ const Chat = () => {
             console.error(error);
         }
     };
-    
     const sendMessage = async (event) => {
         try {
             event.preventDefault();
             const form = event.target;
             // sendMessage2(form.message.value);
             socket.send(form.message.value);
-            const token = localStorage.getItem('tokenUsr')
+            const token = localStorage.getItem('tokenUsr');
             const email = localStorage.getItem('email');
             const srcObj = await axios.get(`${CURRENT_URL}/user?email=${email}`);
             const srcId = srcObj.data[0].id;
             const dest = localStorage.getItem('dest'); // #context
-            const destEmail = dest
+            const destEmail = dest;
             const destObj = await axios.get(`${CURRENT_URL}/user?email=${destEmail}`,
             { headers: { authorization: token } });
             const destId = destObj.data[0].id;
-            const chatItem = { 
+            const chatItem = {
                 source: srcId,
                 destination: destId,
                 chatDate: moment(currentDate).format(format),
-                message:form.message.value,
+                message: form.message.value,
                 createdAt: moment(currentDate).format(format),
-                updatedAt: moment(currentDate).format(format)
-            }
+                updatedAt: moment(currentDate).format(format),
+            };
             // socket.send(chatItem);
             socket.send(JSON.stringify(chatItem));
             await axios.post(`${CURRENT_URL}/chat`, chatItem,
-            { headers: { authorization: token } });        
+            { headers: { authorization: token } });
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     useEffect(() => {
         getChat();
@@ -96,40 +95,47 @@ const Chat = () => {
 
     return (
         <>
-            <h2>
-				Chat with: 
+			<h2>
+				Chat with:
 				{ localStorage.getItem('dest') }
 			</h2>
-            {/*<div>{value}</div>*/}
-            <div className ="generalContainerChat">
-            <div className ="containerChat">
+            {/* <div>{value}</div> */}
+            <div className="generalContainerChat">
+            <div className="containerChat">
             {/* console.log("CHATSSS:", chats) */}
-                {chats.length ?
-                    <>
-                        <div className="chatsContainer">
-                        {chats.map((item) => <>  
-                                <div className={((item.User.email===localStorage.getItem('email'))?'messageSource':'messageDestination')}> {item.message} </div>
-                                <div className={((item.User.email===localStorage.getItem('email'))?'messageSource':'messageDestination')}> {item.chatDate}</div> 
-                                <p/>
-                            </>
-                            )
-                        }
-                        </div>
-                    </>:<>
+                {chats.length
+				? (
+<>
+                    <div className="chatsContainer">
+                        {chats.map((item) => (
+<>
+                                <div className={((item.User.email === localStorage.getItem('email')) ? 'messageSource' : 'messageDestination')}>
+									{item.message}
+                                </div>
+                                <div className={((item.User.email === localStorage.getItem('email')) ? 'messageSource' : 'messageDestination')}>
+									{item.chatDate}
+                                </div>
+                                <p />
+</>
+))}
+                    </div>
+</>
+) : (
+<>
                         <p>No chat yet</p>
-                    </>
-                }
+</>
+)}
                 <form className="send" onSubmit={sendMessage}>
                     <p>
-						Message: 
-						<Input type="text" name="message"/>
-					</p>
+						Message:
+						<Input type="text" name="message" />
+                    </p>
                     <button type="submit">Send</button>
-                </form>  
-                </div>
-            </div>       
+                </form>
+            </div>
+            </div>
         </>
-    )
+    );
 };
 
 export default Chat;

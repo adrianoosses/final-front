@@ -4,8 +4,8 @@ import moment from 'moment';
 import { notification, Input } from 'antd';
 import { useHistory } from 'react-router-dom';
 // import './Chat.css';
-import CURRENT_URL from '../../constants/constants';
 import TextArea from 'antd/lib/input/TextArea';
+import CURRENT_URL from '../../constants/constants';
 
 export default function ProductToSell() {
     const history = useHistory();

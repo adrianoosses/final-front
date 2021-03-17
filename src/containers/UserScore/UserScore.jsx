@@ -5,10 +5,10 @@ import moment from 'moment';
 import { StarOutlined } from '@ant-design/icons';
 // import { useHistory } from 'react-router-dom';
 import { notification } from 'antd';
-import CURRENT_URL from '../../App';
+import CURRENT_URL from '../../constants/constants';
 
 const UserScore = () => {
-    const [score, setScore] = useState('');
+    // const [score, setScore] = useState('');
     const [colorStarValue, setColorStarValue] = useState(['yellow', 'gray', 'gray', 'gray', 'gray']);
     const format = 'YYYY-MM-DD HH:mm:ss';
     const currentDate = new Date().getTime();
@@ -17,12 +17,13 @@ const UserScore = () => {
 	const getUserScore = async () => {
         const dest = localStorage.getItem('dest'); // #context
         try {
+			// score = 1; // aux
             const score2 = await axios.get(`${CURRENT_URL}/userscore?email=${dest}`);
             let score3 = await score2.data[0].score;
-            setScore(score3);
+            // setScore(score3);
             if (score3 > 5) score3 = 5;
             const arrStars = ['gray', 'gray', 'gray', 'gray', 'gray'];
-            for (let i = 0; i < Math.floor(score3); i = i + 1) {
+            for (let i = 0; i < Math.floor(score3); i += 1) {
                 arrStars[i] = 'yellow';
             }
             setColorStarValue(arrStars);

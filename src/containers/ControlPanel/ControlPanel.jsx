@@ -14,7 +14,7 @@ const ControlPanel = () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
     useEffect(() => {
         getUsersList();
     }, []);
@@ -22,37 +22,43 @@ const ControlPanel = () => {
     return (
         <>
                 {usersList
-				?
-                    <>
+				? (
+<>
                     <p>Users received: </p>
-                    {usersList.map( item => <>
+                    {usersList.map((item) => (
+<>
                     <span>
-						Email: 
+						Email:
 						{ item.email }
-					</span>
-                    { item.Products.map(prod => <>
-                        <br/>
-                        <t></t><span>
-							Product title: 
+                    </span>
+                    { item.Products.map((prod) => (
+<>
+                        <br />
+                        <t />
+<span>
+							Product title:
 							{ prod.title }
 							-
-						</span>
-                        <t></t><span>
-							Value: 
+</span>
+                        <t />
+<span>
+							Value:
 							{ prod.price }
 							-
-						</span>
-                    </>
-                    )}
-                    <p></p>
-                        </>
-                        )}
-                    </>:<>
+</span>
+</>
+))}
+                    <p />
+</>
+))}
+</>
+) : (
+<>
                         <p>No users yet</p>
-                    </>
-                } 
+</>
+)}
         </>
-    )
-}
+    );
+};
 
 export default ControlPanel;
